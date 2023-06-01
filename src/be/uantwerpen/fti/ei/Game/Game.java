@@ -38,7 +38,7 @@ public class Game {
                 updateGame();
                 factory.render();
             }
-            try {   // fixed delay
+            try {
                 Thread.sleep(15);
             } catch (InterruptedException e) {
                 System.out.println(e.getStackTrace());
