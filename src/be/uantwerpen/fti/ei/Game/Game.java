@@ -75,7 +75,7 @@ public class Game {
                 factory.render();
             }
             try {
-                Thread.sleep(15);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 System.out.println(e.getStackTrace());
             }
@@ -156,7 +156,7 @@ public class Game {
     public void updatePlayerBullets() {
         if (playerBullets ==  null) {
             if (inputSystem.isCreateBullet()) {
-                playerBullets = factory.createBullet(players.get(0).x(), players.get(0).y() - 2, -1);
+                playerBullets = factory.createBullet(players.get(0).x() + players.get(0).w()/2 - 1, players.get(0).y() - 2, -1);
                 for (var bullet: playerBullets) {
                     updateGameObjects(bullet);
                 }
