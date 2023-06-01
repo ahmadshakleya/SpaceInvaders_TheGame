@@ -16,7 +16,7 @@ public class Factory extends AbstractFactory {
     @Override
     public ArrayList<AbstractPlayer> createPlayer() {
         ArrayList<AbstractPlayer> list = new ArrayList<>();
-        //list.add(new Player(grCtx));
+        list.add(new Player(grCtx));
         return list;
     }
 
@@ -26,9 +26,9 @@ public class Factory extends AbstractFactory {
         int breedte_veld = grCtx.getScreenWidth()/ (4*grCtx.getSize());
         int offsetx = breedte_veld/2;
         int spacingx = breedte_veld;
-        /*for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++){
             list.add(new Barrier(offsetx+(spacingx*(i%5)), grCtx));
-        }*/
+        }
         return list;
     }
 
@@ -47,13 +47,13 @@ public class Factory extends AbstractFactory {
 
     @Override
     public AbstractInput createInput() {
-        return null; //new Input(grCtx);
+        return new Input(grCtx);
     }
 
     @Override
     public ArrayList<AbstractBullet> createBullet(int x, int y, int dy) {
         ArrayList<AbstractBullet> list = new ArrayList<>();
-        //list.add(new Bullet(x,y,dy,grCtx));
+        list.add(new Bullet(x,y,dy,grCtx));
         return list;
     }
 
