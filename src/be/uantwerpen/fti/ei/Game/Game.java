@@ -1,6 +1,5 @@
 package be.uantwerpen.fti.ei.Game;
 
-import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
 import be.uantwerpen.fti.ei.Game.Entities.*;
 import be.uantwerpen.fti.ei.Game.Systems.*;
 
