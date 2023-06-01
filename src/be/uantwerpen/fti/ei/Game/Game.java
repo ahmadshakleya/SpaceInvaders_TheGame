@@ -2,6 +2,7 @@ package be.uantwerpen.fti.ei.Game;
 
 import be.uantwerpen.fti.ei.Game.Entities.*;
 import be.uantwerpen.fti.ei.Game.Systems.*;
+import be.uantwerpen.fti.ei.UI.Bullet;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,15 +15,18 @@ public class Game {
     private ArrayList<AbstractBarrier> barriers;
     private ArrayList<AbstractBullet> playerBullets;
     private ArrayList<AbstractEnemy> enemies;
+    private ArrayList<AbstractBullet> enemyBullets;
     private AbstractInput input;
     private BonusMovementSystem bonusMovementSystem;
     private PlayerMovementSystem playerMovementSystem;
     private InputSystem inputSystem;
     private BulletSystem playerBulletSystem;
     private EnemyMovementSystem enemyMovementSystem;
+    private BulletSystem enemyBulletSystem;
 
     private CollisionSystem collisionSystemPlayerBullet_Bonus;
     private CollisionSystem collisionSystemPlayerBullet_Enemies;
+    private CollisionSystem collisionSystemEnemyBullet_Player;
     private int GameCellsX = 60;
     private int GameCellsY = 60;
     private AbstractFactory factory;
@@ -52,9 +56,11 @@ public class Game {
         playerMovementSystem = new PlayerMovementSystem(players);
         inputSystem = new InputSystem(input, players, isPaused);
         playerBulletSystem = new BulletSystem(null);
+        enemyBulletSystem = new BulletSystem(null);
         enemyMovementSystem = new EnemyMovementSystem(new ArrayList<>(enemies));
         collisionSystemPlayerBullet_Bonus = new CollisionSystem(null, null);
         collisionSystemPlayerBullet_Enemies = new CollisionSystem(null, new ArrayList<>(enemies));
+        collisionSystemEnemyBullet_Player = new CollisionSystem(null, new ArrayList<>(players));
     }
 
     public void run() {
@@ -88,6 +94,7 @@ public class Game {
         updateBarrier();
         updatePlayerBullets();
         updateEnemies();
+        updateEnemyBullet();
         updateCollisions();
     }
     public void drawEntities() {
@@ -205,11 +212,35 @@ public class Game {
             }
         }
     }
+    public void updateEnemyBullet() {
+        if (enemyBullets == null) {
+            enemyFire();
+        } else {
+            for (var bullet: enemyBulletSystem.getBullets()) {
+                if (bullet.getSizeComponent().isReachedEnd() || bullet.getHealthComponent().isDead()){
+                    enemyBullets.get(enemyBulletSystem.getBullets().indexOf(bullet)).getHealthComponent().setDead(true);
+                    removeGameObjects(bullet);
+                }
+            }
+            for (int i = 0; i < enemyBullets.size(); i++) {
+                if (!gameObjects.contains(enemyBullets.get(i))) {
+                    enemyBullets.remove(enemyBullets.get(i));
+                    i--;
+                }
+            }
+            if (enemyBullets.size() == 0) {
+                enemyBullets = null;
+                enemyBulletSystem.setBullets(null);
+                collisionSystemEnemyBullet_Player.setFigures1(null);
+            }
+        }
+    }
     public void updateMovements() {
         bonusMovementSystem.updateBonusMovement();
         playerMovementSystem.updatePlayerMovement();
         playerBulletSystem.updateBulletPosition();
         enemyMovementSystem.updateEnemyMovement();
+        enemyBulletSystem.updateBulletPosition();
     }
     public void updateCollisions() {
         collisionSystemPlayerBullet_Bonus.CollisionDetected();
@@ -225,6 +256,24 @@ public class Game {
             }
             bonusMovementSystem.setBonuses(bonuses);
             collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
+        }
+    }
+    public void enemyFire() {
+        Random rand = new Random();
+        boolean fire = false;
+        if (rand.nextInt(3)+1 == 1 && enemyBullets == null) {
+            fire = true;
+        }
+        if (enemies != null) {
+            int enemyNumber = rand.nextInt(enemies.size());
+            if (fire) {
+                enemyBullets = factory.createBullet(enemies.get(enemyNumber).x(), enemies.get(enemyNumber).y()+1, 1);
+                for (var bullet: enemyBullets) {
+                    updateGameObjects(bullet);
+                }
+                enemyBulletSystem.setBullets(enemyBullets);
+                collisionSystemEnemyBullet_Player.setFigures1(new ArrayList<>(enemyBullets));
+            }
         }
     }
 
