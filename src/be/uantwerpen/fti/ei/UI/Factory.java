@@ -39,9 +39,9 @@ public class Factory extends AbstractFactory {
         int offsety = 7;
         int spacingx = grCtx.getScreenWidth()/120;
         int spacingy = grCtx.getScreenHeight()/100;
-        /*for (int i=0; i<30;i++){
+        for (int i=0; i<30;i++){
             list.add(new Enemy(offsetx+(spacingx*(i%10)), offsety + spacingy*(i / 10), grCtx));
-        }*/
+        }
         return list;
     }
 

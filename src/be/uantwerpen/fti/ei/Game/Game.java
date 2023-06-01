@@ -13,11 +13,16 @@ public class Game {
     private ArrayList<AbstractPlayer> players;
     private ArrayList<AbstractBarrier> barriers;
     private ArrayList<AbstractBullet> playerBullets;
+    private ArrayList<AbstractEnemy> enemies;
     private AbstractInput input;
     private BonusMovementSystem bonusMovementSystem;
     private PlayerMovementSystem playerMovementSystem;
     private InputSystem inputSystem;
     private BulletSystem playerBulletSystem;
+    private EnemyMovementSystem enemyMovementSystem;
+
+    private CollisionSystem collisionSystemPlayerBullet_Bonus;
+    private CollisionSystem collisionSystemPlayerBullet_Enemies;
     private int GameCellsX = 60;
     private int GameCellsY = 60;
     private AbstractFactory factory;
@@ -39,10 +44,17 @@ public class Game {
         for (var barrier: barriers) {
             updateGameObjects(barrier);
         }
+        enemies = factory.createEnemy();
+        for (var enemy: enemies) {
+            updateGameObjects(enemy);
+        }
         bonusMovementSystem = new BonusMovementSystem(bonuses);
         playerMovementSystem = new PlayerMovementSystem(players);
         inputSystem = new InputSystem(input, players, isPaused);
         playerBulletSystem = new BulletSystem(null);
+        enemyMovementSystem = new EnemyMovementSystem(new ArrayList<>(enemies));
+        collisionSystemPlayerBullet_Bonus = new CollisionSystem(null, null);
+        collisionSystemPlayerBullet_Enemies = new CollisionSystem(null, new ArrayList<>(enemies));
     }
 
     public void run() {
@@ -75,6 +87,8 @@ public class Game {
         updatePlayer();
         updateBarrier();
         updatePlayerBullets();
+        updateEnemies();
+        updateCollisions();
     }
     public void drawEntities() {
         for (var figure: gameObjects) {
@@ -87,7 +101,7 @@ public class Game {
             bonusShine();
         } else {
             for (var bonus: bonusMovementSystem.getBonuses()) {
-                if (bonus.getSizeComponent().isReachedEnd()){
+                if (bonus.getSizeComponent().isReachedEnd() || bonus.getHealthComponent().isDead()){
                     bonuses.get(bonusMovementSystem.getBonuses().indexOf(bonus)).getHealthComponent().setDead(true);
                     removeGameObjects(bonus);
                 }
@@ -101,6 +115,7 @@ public class Game {
             if (bonuses.size() == 0) {
                 bonuses = null;
                 bonusMovementSystem.setBonuses(null);
+                collisionSystemPlayerBullet_Bonus.setFigures2(null);
             }
         }
     }
@@ -139,10 +154,12 @@ public class Game {
                     updateGameObjects(bullet);
                 }
                 playerBulletSystem.setBullets(playerBullets);
+                collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
+                collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
             }
         } else {
             for (var bullet: playerBulletSystem.getBullets()) {
-                if (bullet.getSizeComponent().isReachedEnd()){
+                if (bullet.getSizeComponent().isReachedEnd() || bullet.getHealthComponent().isDead()){
                     playerBullets.get(playerBulletSystem.getBullets().indexOf(bullet)).getHealthComponent().setDead(true);
                     removeGameObjects(bullet);
                 }
@@ -156,6 +173,35 @@ public class Game {
             if (playerBullets.size() == 0) {
                 playerBullets = null;
                 playerBulletSystem.setBullets(null);
+                collisionSystemPlayerBullet_Bonus.setFigures1(null);
+                collisionSystemPlayerBullet_Enemies.setFigures1(null);
+            }
+        }
+    }
+    public void updateEnemies() {
+        if (enemies != null) {
+            for (var enemy: enemies){
+                if (enemy.getSizeComponent().isReachedEnd()) {
+                    enemy.getPositionComponent().resetPosition();
+                    enemy.getSizeComponent().setReachedEnd(false);
+                }
+            }
+            enemyMovementSystem.setEnemyArrayList(enemies); // Anders stopten de enemies na een resetPosition
+            for (var enemy: enemies) {
+                if (enemy.getHealthComponent().isDead()) {
+                    removeGameObjects(enemy);
+                }
+            }
+            for (int i = 0; i < enemies.size(); i++) {
+                if (!gameObjects.contains(enemies.get(i))) {
+                    enemies.remove(enemies.get(i));
+                    i--;
+                }
+            }
+            if (enemies.size() == 0) {
+                enemies = null;
+                enemyMovementSystem.setEnemyArrayList(null);
+                collisionSystemPlayerBullet_Enemies.setFigures2(null);
             }
         }
     }
@@ -163,6 +209,11 @@ public class Game {
         bonusMovementSystem.updateBonusMovement();
         playerMovementSystem.updatePlayerMovement();
         playerBulletSystem.updateBulletPosition();
+        enemyMovementSystem.updateEnemyMovement();
+    }
+    public void updateCollisions() {
+        collisionSystemPlayerBullet_Bonus.CollisionDetected();
+        collisionSystemPlayerBullet_Enemies.CollisionDetected();
     }
 
     public void bonusShine() {
@@ -173,6 +224,7 @@ public class Game {
                 updateGameObjects(bonus);
             }
             bonusMovementSystem.setBonuses(bonuses);
+            collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
         }
     }
 

@@ -40,4 +40,9 @@ public class PositionComponent {
         return initialY;
     }
 
+    public void resetPosition() {
+        this.x = initialX;
+        this.y = initialY;
+    }
+
 }
