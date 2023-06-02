@@ -75,7 +75,7 @@ public class Game {
                 factory.render();
             }
             try {
-                Thread.sleep(25);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 System.out.println(e.getStackTrace());
             }
@@ -156,7 +156,7 @@ public class Game {
     public void updatePlayerBullets() {
         if (playerBullets ==  null) {
             if (inputSystem.isCreateBullet()) {
-                playerBullets = factory.createBullet(players.get(0).x(), players.get(0).y() - GameCellsY/20, -GameCellsY/15);
+                playerBullets = factory.createBullet(players.get(0).x(), players.get(0).y() - GameCellsY/20, -1);
                 for (var bullet: playerBullets) {
                     updateGameObjects(bullet);
                 }
@@ -194,6 +194,7 @@ public class Game {
                 }
             }
             enemyMovementSystem.setEnemyArrayList(enemies); // Anders stopten de enemies na een resetPosition
+            //collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
             for (var enemy: enemies) {
                 if (enemy.getHealthComponent().isDead()) {
                     removeGameObjects(enemy);
@@ -267,7 +268,7 @@ public class Game {
         if (enemies != null) {
             int enemyNumber = rand.nextInt(enemies.size());
             if (fire) {
-                enemyBullets = factory.createBullet(enemies.get(enemyNumber).x(), enemies.get(enemyNumber).y()+1, GameCellsY/12);
+                enemyBullets = factory.createBullet(enemies.get(enemyNumber).x(), enemies.get(enemyNumber).y()+1, 1);
                 for (var bullet: enemyBullets) {
                     updateGameObjects(bullet);
                 }
