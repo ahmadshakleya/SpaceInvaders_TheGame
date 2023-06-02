@@ -23,7 +23,7 @@ public class Factory extends AbstractFactory {
     @Override
     public ArrayList<AbstractBarrier> createBarrier() {
         ArrayList<AbstractBarrier> list = new ArrayList<>();
-        int breedte_veld = grCtx.getGameCellsX()/3;//grCtx.getScreenWidth()/ (4*grCtx.getSize());
+        int breedte_veld = grCtx.getScreenWidth()/4;
         int offsetx = breedte_veld/2;
         int spacingx = breedte_veld;
         for (int i = 0; i < 4; i++){

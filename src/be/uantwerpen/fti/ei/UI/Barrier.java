@@ -13,7 +13,7 @@ public class Barrier extends AbstractBarrier {
     private BufferedImage image = null;
 
     public Barrier(int x, GraphicsContext grCtx) {
-        super(x, 70*grCtx.getScreenHeight()/(100*grCtx.getSize()), 0, 0, 0, grCtx.getScreenWidth()/10, grCtx.getScreenHeight()/10, 20, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, 70*grCtx.getScreenHeight()/(100), 0, 0, 0, grCtx.getScreenWidth()/10, grCtx.getScreenHeight()/10, 20, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
         try {
             image = ImageIO.read(new File("src/resource/barrier.png"));
@@ -27,7 +27,7 @@ public class Barrier extends AbstractBarrier {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
         g2d.setColor(new Color(170,170,0));
-        g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
+        g2d.fillRect(super.getPositionComponent().getX(), super.getPositionComponent().getY(), getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
         //g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight(), null);
     }
 }
