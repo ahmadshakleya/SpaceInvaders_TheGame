@@ -12,11 +12,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.Math.max;
+
 public class Player extends AbstractPlayer {
     private GraphicsContext grCtx;
 
     public Player(GraphicsContext grCtx) {
-        super(120, grCtx.getScreenHeight()/ grCtx.getSize() - 10, 0, 0, 1, 10, 5, 3, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(1, 90*grCtx.getScreenHeight()/(100*grCtx.getSize()), 0, 0, 0, grCtx.getScreenWidth()/30, grCtx.getScreenHeight()/30, 3, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), grCtx.getGameCellsX(), grCtx.getGameCellsY());
         this.grCtx = grCtx;
     }
 
@@ -30,6 +32,6 @@ public class Player extends AbstractPlayer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, size*getCollisionComponent().getHitboxWidth(), size* getCollisionComponent().getHitboxHeight(), null);
+        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight(), null);
     }
 }

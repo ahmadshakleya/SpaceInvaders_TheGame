@@ -17,6 +17,8 @@ public class GraphicsContext {
     public BufferedImage backgroundImg;
     public BufferedImage playerSprite;
     private int size;                   // cel size
+    private int GameCellsX;
+    private int GameCellsY;
 
     public Graphics2D getG2d() {
         return g2d;
@@ -84,6 +86,8 @@ public class GraphicsContext {
     }
 
     public void setGameDimensions(int GameCellsX, int GameCellsY) {
+        this.GameCellsX = GameCellsX;
+        this.GameCellsY = GameCellsY;
         size = Math.min(ScreenWidth/GameCellsX, ScreenHeight/GameCellsY);
         System.out.println("size: "+size);
         frame.setLocation(50,50);
@@ -114,5 +118,21 @@ public class GraphicsContext {
 
     public void setScreenHeight(int screenHeight) {
         ScreenHeight = screenHeight;
+    }
+
+    public int getGameCellsX() {
+        return GameCellsX;
+    }
+
+    public void setGameCellsX(int gameCellsX) {
+        GameCellsX = gameCellsX;
+    }
+
+    public int getGameCellsY() {
+        return GameCellsY;
+    }
+
+    public void setGameCellsY(int gameCellsY) {
+        GameCellsY = gameCellsY;
     }
 }

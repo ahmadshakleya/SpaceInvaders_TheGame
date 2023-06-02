@@ -75,7 +75,7 @@ public class Game {
                 factory.render();
             }
             try {
-                Thread.sleep(20);
+                Thread.sleep(25);
             } catch (InterruptedException e) {
                 System.out.println(e.getStackTrace());
             }
@@ -156,7 +156,7 @@ public class Game {
     public void updatePlayerBullets() {
         if (playerBullets ==  null) {
             if (inputSystem.isCreateBullet()) {
-                playerBullets = factory.createBullet(players.get(0).x() + players.get(0).w()/2 - 1, players.get(0).y() - 2, -1);
+                playerBullets = factory.createBullet(players.get(0).x(), players.get(0).y() - GameCellsY/20, -GameCellsY/15);
                 for (var bullet: playerBullets) {
                     updateGameObjects(bullet);
                 }
@@ -249,7 +249,7 @@ public class Game {
 
     public void bonusShine() {
         Random rand = new Random();
-        if (rand.nextInt(100) + 1 == 2 && bonuses == null) {
+        if (rand.nextInt(3) + 1 == 2 && bonuses == null) {
             bonuses = factory.createBonus();
             for (var bonus: bonuses) {
                 updateGameObjects(bonus);
@@ -267,7 +267,7 @@ public class Game {
         if (enemies != null) {
             int enemyNumber = rand.nextInt(enemies.size());
             if (fire) {
-                enemyBullets = factory.createBullet(enemies.get(enemyNumber).x(), enemies.get(enemyNumber).y()+1, 1);
+                enemyBullets = factory.createBullet(enemies.get(enemyNumber).x(), enemies.get(enemyNumber).y()+1, GameCellsY/12);
                 for (var bullet: enemyBullets) {
                     updateGameObjects(bullet);
                 }

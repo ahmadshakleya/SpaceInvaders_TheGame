@@ -29,7 +29,7 @@ public class EnemyMovementSystem {
             if (enemyArrayList.get(0).x() + enemyArrayList.get(0).dx() < 1) {
                 directionChange = true;
             }
-            if (enemyArrayList.get(enemyArrayList.size() - 1).x() + enemyArrayList.get(enemyArrayList.size() - 1).dx() > enemyArrayList.get(0).getSizeComponent().getScreenwidth() / enemyArrayList.get(0).getSizeComponent().getSize() - enemyArrayList.get(0).getSizeComponent().getSize() / 3) {
+            if (enemyArrayList.get(enemyArrayList.size() - 1).x() + enemyArrayList.get(enemyArrayList.size() - 1).dx() > enemyArrayList.get(0).getSizeComponent().getScreenwidth() / enemyArrayList.get(0).getSizeComponent().getSize() - enemyArrayList.get(0).getCollisionComponent().getHitboxWidth()/2) {
                 directionChange = true;
             }
             if (directionChange) {
@@ -39,7 +39,7 @@ public class EnemyMovementSystem {
                     directionChange = false;
                 }
             }
-            if (enemyArrayList.get(enemyArrayList.size() - 1).y() + enemyArrayList.get(enemyArrayList.size() - 1).dy() >= enemyArrayList.get(0).getSizeComponent().getScreenHeight() / enemyArrayList.get(0).getSizeComponent().getSize() - 3) {
+            if (enemyArrayList.get(enemyArrayList.size() - 1).y() + enemyArrayList.get(enemyArrayList.size() - 1).dy() >= enemyArrayList.get(enemyArrayList.size() - 1).getSizeComponent().getScreenHeight() / enemyArrayList.get(enemyArrayList.size() - 1).getSizeComponent().getSize() - enemyArrayList.get(enemyArrayList.size() - 1).getCollisionComponent().getHitboxHeight()/2) {
                 for (var enemy : enemyArrayList) {
                     enemy.getSizeComponent().setReachedEnd(true);
                 }

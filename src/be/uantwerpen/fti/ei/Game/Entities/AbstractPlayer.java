@@ -6,6 +6,8 @@ import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
 
 public abstract class AbstractPlayer extends AbstractFigure{
     private boolean directionChanged = false;
+    int GameCellsX;
+    int GameCellsY;
 
     public AbstractPlayer(int x,
                           int y,
@@ -18,8 +20,12 @@ public abstract class AbstractPlayer extends AbstractFigure{
                           int HighScore,
                           int screenWidth,
                           int screenHeight,
-                          int size) {
+                          int size,
+                          int GameCellsX,
+                          int GameCellsY) {
         super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, HighScore, screenWidth, screenHeight, size);
+        this.GameCellsX = GameCellsX;
+        this.GameCellsY = GameCellsY;
     }
 
     public PositionComponent getPositionComponent() {
@@ -49,8 +55,8 @@ public abstract class AbstractPlayer extends AbstractFigure{
     ///public abstract void update();
     public void setDirection(AbstractInput.Inputs direction) {
         switch (direction) {
-            case LEFT  -> { super.getMovementComponent().setDx(-1);}
-            case RIGHT -> { super.getMovementComponent().setDx(1);}
+            case LEFT  -> { super.getMovementComponent().setDx(-GameCellsX/20);}
+            case RIGHT -> { super.getMovementComponent().setDx(GameCellsX/20);}
             case IDLE -> { super.getMovementComponent().setDx(0);}
         }
         directionChanged = true;
