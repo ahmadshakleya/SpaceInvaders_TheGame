@@ -22,7 +22,6 @@ public class BonusMovementSystem {
                 }
                 if (bonus.x() + bonus.dx() < 1) {
                     bonus.getSizeComponent().setReachedEnd(true);
-                    System.out.println("Einde");
                 }
             }
             updateTeller();

@@ -23,7 +23,7 @@ public class Factory extends AbstractFactory {
     @Override
     public ArrayList<AbstractBarrier> createBarrier() {
         ArrayList<AbstractBarrier> list = new ArrayList<>();
-        int breedte_veld = grCtx.getScreenWidth()/4;
+        int breedte_veld = grCtx.getScreenWidth()/(grCtx.getSize()*4);
         int offsetx = breedte_veld/2;
         int spacingx = breedte_veld;
         for (int i = 0; i < 4; i++){
@@ -36,9 +36,9 @@ public class Factory extends AbstractFactory {
     public ArrayList<AbstractEnemy> createEnemy() {
         ArrayList<AbstractEnemy> list = new ArrayList<>();
         int offsetx = 1;
-        int offsety = grCtx.getGameCellsY()/6;
-        int spacingx = grCtx.getGameCellsX()/12;//grCtx.getScreenWidth()/ (grCtx.getSize()*15);
-        int spacingy = grCtx.getGameCellsY()/20;//grCtx.getScreenHeight()/(grCtx.getSize()*20);
+        int offsety = grCtx.getScreenHeight()/(grCtx.getSize()*5);
+        int spacingx = grCtx.getScreenWidth()/ (grCtx.getSize()*15);
+        int spacingy = grCtx.getScreenHeight()/(grCtx.getSize()*20);
         for (int i=0; i<30;i++){
             list.add(new Enemy(offsetx+(spacingx*(i%10)), offsety + spacingy*(i / 10), grCtx));
         }

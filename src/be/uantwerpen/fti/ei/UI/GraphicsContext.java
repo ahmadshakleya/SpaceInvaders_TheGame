@@ -16,6 +16,10 @@ public class GraphicsContext {
     private Graphics2D g2d;             // always draw in this one
     public BufferedImage backgroundImg;
     public BufferedImage playerSprite;
+    public BufferedImage enemySprite;
+    public BufferedImage bonusSprite;
+    public BufferedImage bulletSprite;
+    public BufferedImage barrierSprite;
     private int size;                   // cel size
     private int GameCellsX;
     private int GameCellsY;
@@ -39,15 +43,40 @@ public class GraphicsContext {
 
     private void loadImages() {
         backgroundImg = null;
+        playerSprite = null;
+        enemySprite = null;
+        bulletSprite = null;
+        bonusSprite = null;
+        barrierSprite = null;
         try {
             backgroundImg = ImageIO.read(new File("src/resource/ScreenshotStarfield.png"));
         } catch (IOException e) {
-            System.out.println("Unable to load ScreenshotStarfield.png or snake-graphics.png!");
+            System.out.println("Unable to load ScreenshotStarfield.png!");
         }
         try {
             playerSprite = ImageIO.read(new File("src/resource/player-sprite.png"));
         } catch (IOException e) {
-            System.out.println("Unable to load ScreenshotStarfield.png or player-sprite.png!");
+            System.out.println("Unable to load player-sprite.png!");
+        }
+        try {
+            enemySprite = ImageIO.read(new File("src/resource/enemy.png"));
+        } catch (IOException e) {
+            System.out.println("Unable to load enemy.png!");
+        }
+        try {
+            bonusSprite = ImageIO.read(new File("src/resource/bonus.png"));
+        } catch (IOException e) {
+            System.out.println("Unable to load bonus.png!");
+        }
+        try {
+            bulletSprite = ImageIO.read(new File("src/resource/bullet.png"));
+        } catch (IOException e) {
+            System.out.println("Unable to load bullet.png!");
+        }
+        try {
+            barrierSprite = ImageIO.read(new File("src/resource/barrier.png"));
+        } catch (IOException e) {
+            System.out.println("Unable to load barrier.png!");
         }
     }
 
@@ -95,7 +124,6 @@ public class GraphicsContext {
         loadImages();
         try {
             backgroundImg = resizeImage(backgroundImg, frame.getWidth(), frame.getHeight());
-            playerSprite = resizeImage(playerSprite, size*5, size*4);
         } catch(Exception e) {
             System.out.println(e.getStackTrace());
         }
@@ -135,4 +163,5 @@ public class GraphicsContext {
     public void setGameCellsY(int gameCellsY) {
         GameCellsY = gameCellsY;
     }
+
 }

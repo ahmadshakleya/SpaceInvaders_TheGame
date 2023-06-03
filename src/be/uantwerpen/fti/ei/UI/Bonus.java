@@ -13,24 +13,19 @@ public class Bonus extends AbstractBonus {
     private BufferedImage image = null;
 
     public Bonus(GraphicsContext grCtx) {
-        super((int) (grCtx.getGameCellsX()*(7.5/ grCtx.getSize())), grCtx.getGameCellsY()/8, -10, 0, 1, grCtx.getScreenWidth()/50,grCtx.getScreenHeight()/30, false, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(grCtx.getScreenWidth()/grCtx.getSize(), grCtx.getScreenHeight()/(grCtx.getSize()*7), -2, 0, 1, grCtx.getScreenWidth()/300,grCtx.getScreenHeight()/300, false, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
-
-        try {
-            image = ImageIO.read(new File("src/resource/bonus.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = grCtx.resizeImage(grCtx.bonusSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        g2d.setColor(new Color(0, 170,0));
-        g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
+        //g2d.setColor(new Color(0, 170,0));
+        //g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
 
-        //g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight(), null);
+        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, null);
     }
 
 }

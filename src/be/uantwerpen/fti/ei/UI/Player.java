@@ -19,21 +19,17 @@ public class Player extends AbstractPlayer {
     private BufferedImage image = null;
 
     public Player(GraphicsContext grCtx) {
-        super(1, 90*grCtx.getScreenHeight()/(100*grCtx.getSize()), 0, 0, 0, grCtx.getScreenWidth()/30, grCtx.getScreenHeight()/30, 3, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), grCtx.getGameCellsX(), grCtx.getGameCellsY());
+        super(1, 90*grCtx.getScreenHeight()/(100*grCtx.getSize()), 0, 0, 0, grCtx.getScreenWidth()/100, grCtx.getScreenHeight()/200, 3, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), grCtx.getGameCellsX(), grCtx.getGameCellsY());
         this.grCtx = grCtx;
-        try {
-            image = ImageIO.read(new File("src/resource/player-sprite.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = grCtx.resizeImage(grCtx.playerSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        //g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight(), null);
-        g2d.setColor(new Color(170,0,0));
-        g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
+        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, null);
+        //g2d.setColor(new Color(170,0,0));
+        //g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
     }
 }

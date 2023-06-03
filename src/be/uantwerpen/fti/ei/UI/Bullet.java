@@ -13,22 +13,18 @@ public class Bullet extends AbstractBullet {
     private GraphicsContext grCtx;
     private BufferedImage image = null;
     public Bullet(int x, int y, int dy, GraphicsContext grCtx) {
-        super(x, y, 0, dy,0, grCtx.getScreenWidth()/80, grCtx.getScreenHeight()/20, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
-        try {
-            image = ImageIO.read(new File("src/resource/bullet.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = grCtx.resizeImage(grCtx.bulletSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        g2d.setColor(new Color(0, 0, 170));
-        g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
-        //g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight(), null);
+        //g2d.setColor(new Color(0, 0, 170));
+        //g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth()*size, getCollisionComponent().getHitboxHeight()*size);
+        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, null);
     }
 
 }

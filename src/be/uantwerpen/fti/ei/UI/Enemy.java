@@ -15,21 +15,17 @@ public class Enemy extends AbstractEnemy {
     private BufferedImage image = null;
 
     public Enemy(int x, int y, GraphicsContext grCtx) {
-        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 40, grCtx.getScreenWidth()/60, grCtx.getScreenHeight()/50, 1, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 40, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
-        try {
-            image = ImageIO.read(new File("src/resource/enemy.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        image = grCtx.resizeImage(grCtx.enemySprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        g2d.setColor(new Color(0, 170,0));
-        g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight());
-        //g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth(), getCollisionComponent().getHitboxHeight(), null);
+        //g2d.setColor(new Color(0, 170,0));
+        //g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth()*size, getCollisionComponent().getHitboxHeight()*size);
+        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, null);
     }
 }
