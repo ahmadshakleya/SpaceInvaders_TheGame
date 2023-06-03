@@ -15,7 +15,7 @@ public class Enemy extends AbstractEnemy {
     private BufferedImage image = null;
 
     public Enemy(int x, int y, GraphicsContext grCtx) {
-        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 40, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 0, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.enemySprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }

@@ -195,14 +195,16 @@ public class Game {
     }
     public void updateEnemies() {
         if (enemies != null) {
-            for (var enemy: enemies){
+            for (var enemy: enemyMovementSystem.getEnemyArrayList()){
                 if (enemy.getSizeComponent().isReachedEnd()) {
                     enemy.getPositionComponent().resetPosition();
+                    if (enemyMovementSystem.getEnemyArrayList().indexOf(enemy) < enemies.size()) {
+                        enemies.get(enemyMovementSystem.getEnemyArrayList().indexOf(enemy)).getPositionComponent().resetPosition();
+                        enemies.get(enemyMovementSystem.getEnemyArrayList().indexOf(enemy)).getSizeComponent().setReachedEnd(false);
+                    }
                     enemy.getSizeComponent().setReachedEnd(false);
                 }
             }
-            enemyMovementSystem.setEnemyArrayList(enemies); // Anders stopten de enemies na een resetPosition
-            //collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
             for (var enemy: enemies) {
                 if (enemy.getHealthComponent().isDead()) {
                     removeGameObjects(enemy);
@@ -292,7 +294,7 @@ public class Game {
         if (enemies != null) {
             int enemyNumber = rand.nextInt(enemies.size());
             if (fire) {
-                enemyBullets = factory.createBullet(enemies.get(enemyNumber).x(), enemies.get(enemyNumber).y()+1, 3);
+                enemyBullets = factory.createBullet(enemies.get(enemyNumber).x() + enemies.get(enemyNumber).w()/2, enemies.get(enemyNumber).y()+1, 3);
                 for (var bullet: enemyBullets) {
                     updateGameObjects(bullet);
                 }
