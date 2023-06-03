@@ -4,18 +4,35 @@ import be.uantwerpen.fti.ei.Game.Components.BulletComponent;
 import be.uantwerpen.fti.ei.Game.Entities.AbstractBullet;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 public class Bullet extends AbstractBullet {
     private GraphicsContext grCtx;
     private BufferedImage image = null;
+    private Clip clip;
+    private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+    private File file;
     public Bullet(int x, int y, int dy, GraphicsContext grCtx) {
-        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\bulletSound.wav");
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.bulletSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
+        try {
+            System.out.println(path+getSoundComponent().getSound());
+            file = new File(path + getSoundComponent().getSound());
+            AudioInputStream ais = AudioSystem.getAudioInputStream(file);
+            DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(ais);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+        clip.start();
     }
 
     @Override

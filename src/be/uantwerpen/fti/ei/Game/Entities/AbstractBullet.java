@@ -1,9 +1,6 @@
 package be.uantwerpen.fti.ei.Game.Entities;
 
-import be.uantwerpen.fti.ei.Game.Components.BulletComponent;
-import be.uantwerpen.fti.ei.Game.Components.CollisionComponent;
-import be.uantwerpen.fti.ei.Game.Components.MovementComponent;
-import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
+import be.uantwerpen.fti.ei.Game.Components.*;
 
 /**
  * Abstract class representing a bullet entity in the game.
@@ -13,6 +10,7 @@ import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
  */
 public abstract class AbstractBullet extends AbstractFigure {
     private BulletComponent bulletComponent;
+    private SoundComponent soundComponent;
 
     /**
      * Constructs an AbstractBullet object.
@@ -41,9 +39,11 @@ public abstract class AbstractBullet extends AbstractFigure {
                           int bonusScore,
                           int screenWidth,
                           int screenHeight,
-                          int size) {
+                          int size,
+                          String soundFile) {
         super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, 1, bonusScore, screenWidth, screenHeight, size);
         this.bulletComponent = new BulletComponent(bulletActief);
+        this.soundComponent = new SoundComponent(soundFile);
     }
 
     /**
@@ -116,5 +116,13 @@ public abstract class AbstractBullet extends AbstractFigure {
      */
     public void setCollisionComponent(CollisionComponent collisionComponent) {
         super.setCollisionComponent(collisionComponent);
+    }
+
+    public SoundComponent getSoundComponent() {
+        return soundComponent;
+    }
+
+    public void setSoundComponent(SoundComponent soundComponent) {
+        this.soundComponent = soundComponent;
     }
 }
