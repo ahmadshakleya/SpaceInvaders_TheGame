@@ -228,7 +228,20 @@ public class Game {
                 enemyMovementSystem.setEnemyArrayList(null);
                 collisionSystemPlayerBullet_Enemies.setFigures2(null);
                 level++;
-                initGame();
+                //initGame();
+                levels.get(0).getScoreComponent().setScore(level);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                enemies = factory.createEnemy();
+                for (var enemy: enemies) {
+                    updateGameObjects(enemy);
+                }
+                enemyMovementSystem.setEnemyArrayList(enemies);
+                collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
+
             }
         }
     }
