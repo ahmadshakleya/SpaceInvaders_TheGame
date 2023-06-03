@@ -22,7 +22,7 @@ public class CollisionSystem {
         figures2 = abstractFigures2;
     }
 
-    public boolean CollisionDetected() {
+    /*public boolean CollisionDetected() {
         if (this.figures1 != null && this.figures2 != null) {
             for (AbstractFigure figure1 : figures1) {
                 for (AbstractFigure figure2 : figures2) {
@@ -48,7 +48,46 @@ public class CollisionSystem {
         }
 
         return collision;
+    }*/
+    public boolean CollisionDetected() {
+        collision = false;
+
+        if (figures1 != null && figures2 != null) {
+            for (AbstractFigure figure1 : figures1) {
+                if (figure1.getHealthComponent().getHealthValue() <= 0) {
+                    continue;
+                }
+
+                for (AbstractFigure figure2 : figures2) {
+                    if (figure2.getHealthComponent().getHealthValue() <= 0) {
+                        continue;
+                    }
+
+                    if (figure1.x() <= figure2.x() + figure2.w()
+                            && figure2.x() <= figure1.x() + figure1.w()
+                            && figure1.y() <= figure2.y() + figure2.h()
+                            && figure2.y() <= figure1.y() + figure1.h()) {
+                        collision = true;
+                        figure1.getHealthComponent().setHealthValue(figure1.getHealthComponent().getHealthValue() - 1);
+                        figure2.getHealthComponent().setHealthValue(figure2.getHealthComponent().getHealthValue() - 1);
+
+                        if (figure1.getHealthComponent().getHealthValue() == 0) {
+                            figure1.getHealthComponent().setDead(true);
+                        }
+
+                        if (figure2.getHealthComponent().getHealthValue() == 0) {
+                            figure2.getHealthComponent().setDead(true);
+                        }
+
+                        break; // Exit the inner loop if a collision occurred
+                    }
+                }
+            }
+        }
+
+        return collision;
     }
+
 
     public ArrayList<AbstractFigure> getFigures1() {
         return figures1;

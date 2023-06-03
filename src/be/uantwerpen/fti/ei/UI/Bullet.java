@@ -13,7 +13,7 @@ public class Bullet extends AbstractBullet {
     private GraphicsContext grCtx;
     private BufferedImage image = null;
     public Bullet(int x, int y, int dy, GraphicsContext grCtx) {
-        super(x, y, 0, dy,0, grCtx.getScreenWidth()/50, grCtx.getScreenHeight()/20, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, y, 0, dy,0, grCtx.getScreenWidth()/80, grCtx.getScreenHeight()/20, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
         try {
             image = ImageIO.read(new File("src/resource/bullet.png"));

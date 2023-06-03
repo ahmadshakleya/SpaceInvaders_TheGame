@@ -88,6 +88,7 @@ public class Game {
     }
 
     public void updateEntities() {
+        updateCollisions();
         updateMovements();
         updateBonus();
         updatePlayer();
@@ -95,7 +96,7 @@ public class Game {
         updatePlayerBullets();
         updateEnemies();
         updateEnemyBullet();
-        updateCollisions();
+
     }
     public void drawEntities() {
         for (var figure: gameObjects) {
@@ -245,7 +246,20 @@ public class Game {
     }
     public void updateCollisions() {
         collisionSystemPlayerBullet_Bonus.CollisionDetected();
+        if (playerBullets != null) {
+            collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
+        }
+        if (bonuses != null) {
+            collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
+        }
         collisionSystemPlayerBullet_Enemies.CollisionDetected();
+        if (playerBullets != null) {
+            collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
+        }
+        if (enemies != null) {
+            collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
+        }
+
     }
 
     public void bonusShine() {
