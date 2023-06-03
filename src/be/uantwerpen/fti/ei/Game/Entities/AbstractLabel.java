@@ -2,8 +2,8 @@ package be.uantwerpen.fti.ei.Game.Entities;
 
 import be.uantwerpen.fti.ei.Game.Components.*;
 
-public abstract class AbstractScore extends AbstractFigure{
-    public AbstractScore(int x,
+public abstract class AbstractLabel extends AbstractFigure{
+    public AbstractLabel(int x,
                          int y,
                          int breedte,
                          int lengte,

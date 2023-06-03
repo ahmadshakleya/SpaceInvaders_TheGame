@@ -10,10 +10,12 @@ public class EnemyMovementSystem {
     private boolean directionChange = false;
 
     private int teller = 0;
+    private int enemyLaagsteX = 0;
+    private int enemyHoogsteX;
 
     public EnemyMovementSystem(ArrayList<AbstractEnemy> enemy) {
         this.enemyArrayList = enemy;
-
+        enemyHoogsteX = enemyArrayList.size() - 1;
     }
 
     public void updateEnemyMovement() {
@@ -26,10 +28,21 @@ public class EnemyMovementSystem {
             } else {
                 teller++;
             }
-            if (enemyArrayList.get(0).x() + enemyArrayList.get(0).dx() < 1) {
+            for (var enemy: enemyArrayList) {
+                if (enemyHoogsteX > enemyArrayList.size()-1) {
+                    enemyHoogsteX = enemyArrayList.size()-1;
+                }
+                if (enemy.x() < enemyArrayList.get(enemyLaagsteX).x()) {
+                    enemyLaagsteX = enemyArrayList.indexOf(enemy);
+                }
+                if (enemy.x() > enemyArrayList.get(enemyHoogsteX).x()) {
+                    enemyHoogsteX = enemyArrayList.indexOf(enemy);
+                }
+            }
+            if (enemyArrayList.get(enemyLaagsteX).x() + enemyArrayList.get(enemyLaagsteX).dx() < 1) {
                 directionChange = true;
             }
-            if (enemyArrayList.get(enemyArrayList.size() - 1).x() + enemyArrayList.get(enemyArrayList.size() - 1).dx() > enemyArrayList.get(0).getSizeComponent().getScreenwidth() / enemyArrayList.get(0).getSizeComponent().getSize() - enemyArrayList.get(0).getCollisionComponent().getHitboxWidth()/2) {
+            if (enemyArrayList.get(enemyHoogsteX).x() + enemyArrayList.get(enemyHoogsteX).dx() > enemyArrayList.get(enemyHoogsteX).getSizeComponent().getScreenwidth() / enemyArrayList.get(enemyHoogsteX).getSizeComponent().getSize() - enemyArrayList.get(enemyHoogsteX).getCollisionComponent().getHitboxWidth()/2) {
                 directionChange = true;
             }
             if (directionChange) {

@@ -1,0 +1,2 @@
+ScreenWidth:700
+ScreenHeight:500

@@ -2,7 +2,6 @@ package be.uantwerpen.fti.ei.Game;
 
 import be.uantwerpen.fti.ei.Game.Entities.*;
 import be.uantwerpen.fti.ei.Game.Systems.*;
-import be.uantwerpen.fti.ei.UI.Bullet;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +15,8 @@ public class Game {
     private ArrayList<AbstractBullet> playerBullets;
     private ArrayList<AbstractEnemy> enemies;
     private ArrayList<AbstractBullet> enemyBullets;
-    private ArrayList<AbstractScore> scores;
+    private ArrayList<AbstractLabel> scores;
+    private ArrayList<AbstractLabel> levels;
     private AbstractInput input;
     private BonusMovementSystem bonusMovementSystem;
     private PlayerMovementSystem playerMovementSystem;
@@ -34,6 +34,7 @@ public class Game {
     private AbstractFactory factory;
 
     private boolean EndGame = false;
+    private int level = 0;
 
     private ArrayList<AbstractFigure> gameObjects = new ArrayList<>();
     public Game(AbstractFactory abstractFactory) {
@@ -42,12 +43,17 @@ public class Game {
 
     private void initGame(){
         players = factory.createPlayer();
+        players.get(0).getLevelComponent().setLevel(level);
         for (var player: players) {
             updateGameObjects(player);
         }
         scores = factory.createScore(players.get(0).getScoreComponent().getScore());
+        levels = factory.createLevel(players.get(0).getLevelComponent().getLevel());
         for (var score: scores) {
             updateGameObjects(score);
+        }
+        for (var level: levels) {
+            updateGameObjects(level);
         }
         input = factory.createInput();
         barriers = factory.createBarrier();
@@ -63,7 +69,8 @@ public class Game {
         inputSystem = new InputSystem(input, players, isPaused);
         playerBulletSystem = new BulletSystem(null);
         enemyBulletSystem = new BulletSystem(null);
-        enemyMovementSystem = new EnemyMovementSystem(new ArrayList<>(enemies));
+        //enemyMovementSystem = new EnemyMovementSystem(new ArrayList<>(enemies));
+        enemyMovementSystem = new EnemyMovementSystem(enemies);
         collisionSystemPlayerBullet_Bonus = new CollisionSystem(null, null);
         collisionSystemPlayerBullet_Enemies = new CollisionSystem(null, new ArrayList<>(enemies));
         collisionSystemEnemyBullet_Player = new CollisionSystem(null, new ArrayList<>(players));
@@ -220,6 +227,8 @@ public class Game {
                 enemies = null;
                 enemyMovementSystem.setEnemyArrayList(null);
                 collisionSystemPlayerBullet_Enemies.setFigures2(null);
+                level++;
+                initGame();
             }
         }
     }
@@ -263,7 +272,7 @@ public class Game {
         }*/
         if (collisionSystemPlayerBullet_Enemies.CollisionDetected()) {
             scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
-            System.out.println("Score: " + scores.get(0).getScoreComponent().getScore());
+            System.out.println("Label: " + scores.get(0).getScoreComponent().getScore());
         }
         /*if (playerBullets != null) {
             collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));

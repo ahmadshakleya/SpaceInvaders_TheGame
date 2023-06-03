@@ -4,10 +4,11 @@ import be.uantwerpen.fti.ei.Game.Entities.AbstractLabel;
 
 import java.awt.*;
 
-public class Score extends AbstractLabel {
-    private GraphicsContext grCtx;
-    public Score(int score, GraphicsContext grCtx) {
-        super(1, 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, score, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+public class Level extends AbstractLabel {
+    GraphicsContext grCtx;
+
+    public Level(int level, GraphicsContext grCtx) {
+        super(20, 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, level, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
     }
 
@@ -19,6 +20,6 @@ public class Score extends AbstractLabel {
         g2d.setColor(Color.WHITE);
 
         // Draw the score in the upper left corner
-        g2d.drawString("Score: " + getScoreComponent().getScore(), getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
+        g2d.drawString("Level: " + getScoreComponent().getScore(), getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
     }
 }

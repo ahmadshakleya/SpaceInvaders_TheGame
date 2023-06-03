@@ -1,10 +1,12 @@
 package be.uantwerpen.fti.ei.Game.Entities;
 
 import be.uantwerpen.fti.ei.Game.Components.CollisionComponent;
+import be.uantwerpen.fti.ei.Game.Components.LevelComponent;
 import be.uantwerpen.fti.ei.Game.Components.MovementComponent;
 import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
 
 public abstract class AbstractPlayer extends AbstractFigure{
+    private LevelComponent levelComponent;
     private boolean directionChanged = false;
     int GameCellsX;
     int GameCellsY;
@@ -22,10 +24,12 @@ public abstract class AbstractPlayer extends AbstractFigure{
                           int screenHeight,
                           int size,
                           int GameCellsX,
-                          int GameCellsY) {
+                          int GameCellsY,
+                          int level) {
         super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, HighScore, screenWidth, screenHeight, size);
         this.GameCellsX = GameCellsX;
         this.GameCellsY = GameCellsY;
+        this.levelComponent = new LevelComponent(level);
     }
 
     public PositionComponent getPositionComponent() {
@@ -68,5 +72,13 @@ public abstract class AbstractPlayer extends AbstractFigure{
 
     public void setDirectionChanged(boolean directionChanged) {
         this.directionChanged = directionChanged;
+    }
+
+    public LevelComponent getLevelComponent() {
+        return levelComponent;
+    }
+
+    public void setLevelComponent(LevelComponent levelComponent) {
+        this.levelComponent = levelComponent;
     }
 }

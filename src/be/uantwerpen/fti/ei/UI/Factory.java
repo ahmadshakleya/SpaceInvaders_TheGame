@@ -3,12 +3,30 @@ package be.uantwerpen.fti.ei.UI;
 import be.uantwerpen.fti.ei.Game.AbstractFactory;
 import be.uantwerpen.fti.ei.Game.Entities.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Factory extends AbstractFactory {
     private GraphicsContext grCtx;
-
-    public Factory(int screenWidth, int screenHeight) {
+    private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+    public Factory(String configFile) {
+        int screenWidth = 0, screenHeight = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(path+configFile))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.startsWith("ScreenWidth:")) {
+                    screenWidth = Integer.parseInt(line.substring(line.indexOf(":") + 1));
+                } else if (line.startsWith("ScreenHeight:")) {
+                    screenHeight = Integer.parseInt(line.substring(line.indexOf(":") + 1));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         grCtx = new GraphicsContext(screenWidth, screenHeight);
     }
 
@@ -65,9 +83,15 @@ public class Factory extends AbstractFactory {
     }
 
     @Override
-    public ArrayList<AbstractScore> createScore(int score) {
-        ArrayList<AbstractScore> list = new ArrayList<>();
+    public ArrayList<AbstractLabel> createScore(int score) {
+        ArrayList<AbstractLabel> list = new ArrayList<>();
         list.add(new Score(score, grCtx));
+        return list;
+    }
+    @Override
+    public ArrayList<AbstractLabel> createLevel(int level) {
+        ArrayList<AbstractLabel> list = new ArrayList<>();
+        list.add(new Level(level, grCtx));
         return list;
     }
 
