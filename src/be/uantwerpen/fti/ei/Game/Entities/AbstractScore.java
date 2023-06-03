@@ -2,22 +2,17 @@ package be.uantwerpen.fti.ei.Game.Entities;
 
 import be.uantwerpen.fti.ei.Game.Components.*;
 
-public abstract class AbstractEnemy extends AbstractFigure{
-    public AbstractEnemy(int x,
+public abstract class AbstractScore extends AbstractFigure{
+    public AbstractScore(int x,
                          int y,
-                         int dx,
-                         int dy,
-                         int traagheid,
-                         int hitboxWidth,
-                         int hitboxHeight,
-                         int healthValue,
-                         int enemyPoints,
+                         int breedte,
+                         int lengte,
+                         int score,
                          int screenWidth,
                          int screenHeight,
                          int size) {
-        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, enemyPoints, screenWidth, screenHeight, size);
+        super(x, y, 0, 0, 0, breedte, lengte, 1, score, screenWidth, screenHeight, size);
     }
-
     @Override
     public PositionComponent getPositionComponent() {
         return super.getPositionComponent();

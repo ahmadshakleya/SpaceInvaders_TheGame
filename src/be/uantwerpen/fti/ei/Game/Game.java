@@ -16,6 +16,7 @@ public class Game {
     private ArrayList<AbstractBullet> playerBullets;
     private ArrayList<AbstractEnemy> enemies;
     private ArrayList<AbstractBullet> enemyBullets;
+    private ArrayList<AbstractScore> scores;
     private AbstractInput input;
     private BonusMovementSystem bonusMovementSystem;
     private PlayerMovementSystem playerMovementSystem;
@@ -42,6 +43,10 @@ public class Game {
         players = factory.createPlayer();
         for (var player: players) {
             updateGameObjects(player);
+        }
+        scores = factory.createScore(players.get(0).getScoreComponent().getScore());
+        for (var score: scores) {
+            updateGameObjects(score);
         }
         input = factory.createInput();
         barriers = factory.createBarrier();
@@ -252,7 +257,10 @@ public class Game {
         if (bonuses != null) {
             collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
         }
-        collisionSystemPlayerBullet_Enemies.CollisionDetected();
+        if (collisionSystemPlayerBullet_Enemies.CollisionDetected()) {
+            scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
+            System.out.println("Score: " + scores.get(0).getScoreComponent().getScore());
+        }
         if (playerBullets != null) {
             collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
         }

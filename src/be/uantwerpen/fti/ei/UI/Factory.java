@@ -65,6 +65,13 @@ public class Factory extends AbstractFactory {
     }
 
     @Override
+    public ArrayList<AbstractScore> createScore(int score) {
+        ArrayList<AbstractScore> list = new ArrayList<>();
+        list.add(new Score(score, grCtx));
+        return list;
+    }
+
+    @Override
     public void setGameDimensions(int GameCellsX, int GameCellsY) {
         grCtx.setGameDimensions(GameCellsX, GameCellsY);
     }
