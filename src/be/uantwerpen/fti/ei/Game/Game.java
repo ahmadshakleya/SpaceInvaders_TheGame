@@ -229,12 +229,10 @@ public class Game {
                 collisionSystemPlayerBullet_Enemies.setFigures2(null);
                 level++;
                 //initGame();
+                drawEntities();
+                drawEntities();
+                drawEntities();
                 levels.get(0).getScoreComponent().setScore(level);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
                 enemies = factory.createEnemy();
                 for (var enemy: enemies) {
                     updateGameObjects(enemy);
