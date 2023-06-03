@@ -28,6 +28,7 @@ public class Game {
     private CollisionSystem collisionSystemPlayerBullet_Bonus;
     private CollisionSystem collisionSystemPlayerBullet_Enemies;
     private CollisionSystem collisionSystemEnemyBullet_Player;
+    private CollisionSystem collisionSystemEnemyBullet_Barrier;
     private int GameCellsX = 60;
     private int GameCellsY = 60;
     private AbstractFactory factory;
@@ -66,6 +67,7 @@ public class Game {
         collisionSystemPlayerBullet_Bonus = new CollisionSystem(null, null);
         collisionSystemPlayerBullet_Enemies = new CollisionSystem(null, new ArrayList<>(enemies));
         collisionSystemEnemyBullet_Player = new CollisionSystem(null, new ArrayList<>(players));
+        collisionSystemEnemyBullet_Barrier = new CollisionSystem(null, new ArrayList<>(barriers));
     }
 
     public void run() {
@@ -101,7 +103,6 @@ public class Game {
         updatePlayerBullets();
         updateEnemies();
         updateEnemyBullet();
-
     }
     public void drawEntities() {
         for (var figure: gameObjects) {
@@ -156,6 +157,7 @@ public class Game {
             }
             if (barriers.size() == 0) {
                 barriers = null;
+                collisionSystemEnemyBullet_Barrier.setFigures2(null);
             }
         }
     }
@@ -251,23 +253,23 @@ public class Game {
     }
     public void updateCollisions() {
         collisionSystemPlayerBullet_Bonus.CollisionDetected();
-        if (playerBullets != null) {
+        /*if (playerBullets != null) {
             collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
         }
         if (bonuses != null) {
             collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
-        }
+        }*/
         if (collisionSystemPlayerBullet_Enemies.CollisionDetected()) {
             scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
             System.out.println("Score: " + scores.get(0).getScoreComponent().getScore());
         }
-        if (playerBullets != null) {
+        /*if (playerBullets != null) {
             collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
         }
         if (enemies != null) {
             collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
-        }
-
+        }*/
+        collisionSystemEnemyBullet_Barrier.CollisionDetected();
     }
 
     public void bonusShine() {
@@ -296,6 +298,7 @@ public class Game {
                 }
                 enemyBulletSystem.setBullets(enemyBullets);
                 collisionSystemEnemyBullet_Player.setFigures1(new ArrayList<>(enemyBullets));
+                collisionSystemEnemyBullet_Barrier.setFigures1(new ArrayList<>(enemyBullets));
             }
         }
     }
