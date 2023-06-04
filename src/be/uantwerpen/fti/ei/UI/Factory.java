@@ -57,7 +57,7 @@ public class Factory extends AbstractFactory {
         int offsety = grCtx.getScreenHeight()/(grCtx.getSize()*5);
         int spacingx = grCtx.getScreenWidth()/ (grCtx.getSize()*15);
         int spacingy = grCtx.getScreenHeight()/(grCtx.getSize()*20);
-        for (int i=0; i<30;i++){
+        for (int i=0; i<50;i++){
             list.add(new Enemy(offsetx+(spacingx*(i%10)), offsety + spacingy*(i / 10), grCtx));
         }
         return list;
