@@ -15,6 +15,8 @@ public abstract class AbstractFactory {
     public abstract ArrayList<AbstractBonus> createBonus(int x, String type);
     public abstract ArrayList<AbstractLabel> createScore(int score);
     public abstract ArrayList<AbstractLabel> createLevel(int level);
+
+    public abstract ArrayList<AbstractLabel> createHealthIndication(int health);
     public abstract void setGameDimensions(int GameCellsX, int GameCellsY);
     public abstract void render();
 }

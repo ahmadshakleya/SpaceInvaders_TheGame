@@ -106,6 +106,13 @@ public class FactoryCUBE extends AbstractFactory {
     }
 
     @Override
+    public ArrayList<AbstractLabel> createHealthIndication(int health) {
+        ArrayList<AbstractLabel> list = new ArrayList<>();
+        list.add(new HealthCUBE(health, grCtx));
+        return list;
+    }
+
+    @Override
     public void setGameDimensions(int GameCellsX, int GameCellsY) {
         grCtx.setGameDimensions(GameCellsX, GameCellsY);
     }

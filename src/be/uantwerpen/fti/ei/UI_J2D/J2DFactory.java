@@ -106,6 +106,13 @@ public class J2DFactory extends AbstractFactory {
     }
 
     @Override
+    public ArrayList<AbstractLabel> createHealthIndication(int health) {
+        ArrayList<AbstractLabel> list = new ArrayList<>();
+        list.add(new J2DHealth(health, grCtx));
+        return list;
+    }
+
+    @Override
     public void setGameDimensions(int GameCellsX, int GameCellsY) {
         grCtx.setGameDimensions(GameCellsX, GameCellsY);
     }

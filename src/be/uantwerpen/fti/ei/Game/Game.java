@@ -17,6 +17,8 @@ public class Game {
     private ArrayList<AbstractBullet> enemyBullets;
     private ArrayList<AbstractLabel> scores;
     private ArrayList<AbstractLabel> levels;
+
+    private ArrayList<AbstractLabel> healths;
     private AbstractInput input;
     private BonusMovementSystem bonusMovementSystem;
     private PlayerMovementSystem playerMovementSystem;
@@ -49,11 +51,15 @@ public class Game {
         }
         scores = factory.createScore(players.get(0).getScoreComponent().getScore());
         levels = factory.createLevel(players.get(0).getLevelComponent().getLevel());
+        healths = factory.createHealthIndication(players.get(0).getHealthComponent().getHealthValue());
         for (var score: scores) {
             updateGameObjects(score);
         }
         for (var level: levels) {
             updateGameObjects(level);
+        }
+        for (var health: healths) {
+            updateGameObjects(health);
         }
         input = factory.createInput();
         barriers = factory.createBarrier();
