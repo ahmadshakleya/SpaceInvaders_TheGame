@@ -53,42 +53,42 @@ public class J2DGraphicsContext {
         barrierSprite = null;
         playerBulletSprite = null;
         try {
-            backgroundImg = ImageIO.read(new File("src/resource/ScreenshotStarfield.png"));
+            backgroundImg = ImageIO.read(new File("src/resource/Sprites/ScreenshotStarfield.png"));
         } catch (IOException e) {
             System.out.println("Unable to load ScreenshotStarfield.png!");
         }
         try {
-            playerSprite = ImageIO.read(new File("src/resource/player-sprite.png"));
+            playerSprite = ImageIO.read(new File("src/resource/Sprites/player-sprite.png"));
         } catch (IOException e) {
             System.out.println("Unable to load player-sprite.png!");
         }
         try {
-            enemySprite = ImageIO.read(new File("src/resource/enemy.png"));
+            enemySprite = ImageIO.read(new File("src/resource/Sprites/enemy.png"));
         } catch (IOException e) {
             System.out.println("Unable to load enemy.png!");
         }
         try {
-            positiveBonusSprite = ImageIO.read(new File("src/resource/positiveBonus.png"));
+            positiveBonusSprite = ImageIO.read(new File("src/resource/Sprites/positiveBonus.png"));
         } catch (IOException e) {
             System.out.println("Unable to load positiveBonus.png!");
         }
         try {
-            enemyBulletSprite = ImageIO.read(new File("src/resource/enemyBullet.png"));
+            enemyBulletSprite = ImageIO.read(new File("src/resource/Sprites/enemyBullet.png"));
         } catch (IOException e) {
             System.out.println("Unable to load enemyBullet.png!");
         }
         try {
-            playerBulletSprite = ImageIO.read(new File("src/resource/playerBullet.png"));
+            playerBulletSprite = ImageIO.read(new File("src/resource/Sprites/playerBullet.png"));
         } catch (IOException e) {
             System.out.println("Unable to load enemyBullet.png!");
         }
         try {
-            barrierSprite = ImageIO.read(new File("src/resource/barrier.png"));
+            barrierSprite = ImageIO.read(new File("src/resource/Sprites/barrier.png"));
         } catch (IOException e) {
             System.out.println("Unable to load barrier.png!");
         }
         try {
-            negativeBonusSprite = ImageIO.read(new File("src/resource/negativeBonus.png"));
+            negativeBonusSprite = ImageIO.read(new File("src/resource/Sprites/negativeBonus.png"));
         } catch (IOException e) {
             System.out.println("Unable to load barrier.png!");
         }

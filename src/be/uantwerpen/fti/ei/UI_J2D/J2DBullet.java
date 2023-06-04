@@ -17,7 +17,7 @@ public class J2DBullet extends AbstractBullet {
     private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
     private File file;
     public J2DBullet(int x, int y, int dy, J2DGraphicsContext grCtx) {
-        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\bulletSound.wav");
+        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\Audio\\bulletSound.wav");
         this.grCtx = grCtx;
         if (dy > 0) {
             image = grCtx.resizeImage(grCtx.enemyBulletSprite, getCollisionComponent().getHitboxWidth() * grCtx.getSize(), getCollisionComponent().getHitboxHeight() * grCtx.getSize());

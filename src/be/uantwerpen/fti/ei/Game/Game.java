@@ -361,9 +361,9 @@ public class Game {
         if (getal == 2 && bonuses == null) {
             int type = rand.nextInt(100) + 1;
             if (type % 2 == 0) {
-                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize()) + 1, "+");
+                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize() - players.get(0).getCollisionComponent().getHitboxWidth()), "+");
             } else {
-                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize())+1, "-");
+                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize() - players.get(0).getCollisionComponent().getHitboxWidth())+1, "-");
             }
             for (var bonus: bonuses) {
                 updateGameObjects(bonus);

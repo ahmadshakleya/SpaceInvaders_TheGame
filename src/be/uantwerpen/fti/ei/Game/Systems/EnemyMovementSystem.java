@@ -33,7 +33,7 @@ public class EnemyMovementSystem {
                     enemyHoogsteX = enemyArrayList.size()-1;
                 }
                 if (enemyLaagsteX >= enemyArrayList.size()) {
-                    enemyHoogsteX = 0;
+                    enemyLaagsteX = 0;
                 }
                 if (enemy.x() < enemyArrayList.get(enemyLaagsteX).x()) {
                     enemyLaagsteX = enemyArrayList.indexOf(enemy);

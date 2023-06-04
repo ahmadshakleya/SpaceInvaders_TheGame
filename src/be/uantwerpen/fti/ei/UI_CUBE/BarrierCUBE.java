@@ -12,7 +12,7 @@ public class BarrierCUBE extends AbstractBarrier {
     public BarrierCUBE(int x, GraphicsContextCUBE grCtx) {
         super(x, 70*grCtx.getScreenHeight()/(grCtx.getSize()*100), 0, 0, 0, grCtx.getScreenWidth()/80, grCtx.getScreenHeight()/70, 5, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
-        initialHealthValue = 5;
+        initialHealthValue = getHealthComponent().getHealthValue();
     }
     @Override
     public void draw() {

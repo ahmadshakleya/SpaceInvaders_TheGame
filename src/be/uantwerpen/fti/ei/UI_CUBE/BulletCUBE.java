@@ -16,7 +16,7 @@ public class BulletCUBE extends AbstractBullet {
     private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
     private File file;
     public BulletCUBE(int x, int y, int dy, GraphicsContextCUBE grCtx) {
-        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\bulletSound.wav");
+        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\Audio\\bulletSound.wav");
         this.grCtx = grCtx;
         try {
             file = new File(path + getSoundComponent().getSound());
