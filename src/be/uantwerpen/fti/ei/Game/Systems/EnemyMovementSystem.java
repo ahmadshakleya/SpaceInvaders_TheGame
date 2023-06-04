@@ -32,7 +32,7 @@ public class EnemyMovementSystem {
                 if (enemyHoogsteX > enemyArrayList.size()-1) {
                     enemyHoogsteX = enemyArrayList.size()-1;
                 }
-                if (enemyLaagsteX < 0) {
+                if (enemyLaagsteX >= enemyArrayList.size()) {
                     enemyHoogsteX = 0;
                 }
                 if (enemy.x() < enemyArrayList.get(enemyLaagsteX).x()) {
@@ -45,7 +45,7 @@ public class EnemyMovementSystem {
             if (enemyArrayList.get(enemyLaagsteX).x() + enemyArrayList.get(enemyLaagsteX).dx() < 1) {
                 directionChange = true;
             }
-            if (enemyArrayList.get(enemyHoogsteX).x() + enemyArrayList.get(enemyHoogsteX).dx() > enemyArrayList.get(enemyHoogsteX).getSizeComponent().getScreenwidth() / enemyArrayList.get(enemyHoogsteX).getSizeComponent().getSize() - enemyArrayList.get(enemyHoogsteX).getCollisionComponent().getHitboxWidth()/2) {
+            if (enemyArrayList.get(enemyHoogsteX).x() + enemyArrayList.get(enemyHoogsteX).dx() > enemyArrayList.get(enemyHoogsteX).getSizeComponent().getScreenwidth() / enemyArrayList.get(enemyHoogsteX).getSizeComponent().getSize() - enemyArrayList.get(enemyHoogsteX).getCollisionComponent().getHitboxWidth()) {
                 directionChange = true;
             }
             if (directionChange) {

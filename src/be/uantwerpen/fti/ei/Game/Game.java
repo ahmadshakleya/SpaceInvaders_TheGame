@@ -91,6 +91,57 @@ public class Game {
         collisionSystemEnemyBullet_Player = new CollisionSystem(null, new ArrayList<>(players));
         collisionSystemEnemyBullet_Barrier = new CollisionSystem(null, new ArrayList<>(barriers));
     }
+    private void loadNewLevel() {
+        level++;
+        if (bonuses != null) {
+            gameObjects.removeAll(bonuses);
+            bonuses = null;
+        }
+        if (barriers != null) {
+            gameObjects.removeAll(barriers);
+            barriers = null;
+        }
+        if (playerBullets != null) {
+            gameObjects.removeAll(playerBullets);
+            playerBullets = null;
+        }
+        if (enemyBullets != null) {
+            gameObjects.removeAll(enemyBullets);
+            enemyBullets = null;
+        }
+        bonusMovementSystem.setBonuses(null);
+        playerBulletSystem.setBullets(null);
+        enemyBulletSystem.setBullets(null);
+        collisionSystemPlayerBullet_Bonus.setFigures1(null);
+        collisionSystemPlayerBullet_Bonus.setFigures2(null);
+        collisionSystemPlayerBullet_Enemies.setFigures1(null);
+        collisionSystemPlayerBullet_Enemies.setFigures2(null);
+        collisionSystemEnemyBullet_Player.setFigures1(null);
+        collisionSystemEnemyBullet_Barrier.setFigures1(null);
+        collisionSystemEnemyBullet_Barrier.setFigures2(null);
+    }
+    private void loadNewGame() {
+        levels.get(0).getScoreComponent().setScore(level);
+        enemies = factory.createEnemy();
+        for (var enemy: enemies) {
+            updateGameObjects(enemy);
+        }
+        enemyMovementSystem.setEnemyArrayList(enemies);
+        collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
+
+        players.get(0).getLevelComponent().setLevel(level);
+
+        barriers = factory.createBarrier();
+        for (var barrier: barriers) {
+            updateGameObjects(barrier);
+        }
+
+        bonusMovementSystem = new BonusMovementSystem(bonuses);
+
+        enemyMovementSystem = new EnemyMovementSystem(enemies);
+        collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
+        collisionSystemEnemyBullet_Barrier.setFigures2(new ArrayList<>(barriers));
+    }
 
     public void run() {
         factory.setGameDimensions(GameCellsX, GameCellsY);
@@ -100,7 +151,11 @@ public class Game {
         while (isRunning) {
             inputSystem.updateInput();
             if (!inputSystem.isPaused() && !EndGame) {
-                updateGame();
+                if (levels.get(0).getScoreComponent().getScore() == level) {
+                    updateGame();
+                } else {
+                    loadNewGame();
+                }
                 factory.render();
             }
             try {
@@ -253,19 +308,7 @@ public class Game {
                 enemies = null;
                 enemyMovementSystem.setEnemyArrayList(null);
                 collisionSystemPlayerBullet_Enemies.setFigures2(null);
-                level++;
-                //initGame();
-                drawEntities();
-                drawEntities();
-                drawEntities();
-                levels.get(0).getScoreComponent().setScore(level);
-                enemies = factory.createEnemy();
-                for (var enemy: enemies) {
-                    updateGameObjects(enemy);
-                }
-                enemyMovementSystem.setEnemyArrayList(enemies);
-                collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
-
+                loadNewLevel();
             }
         }
     }
@@ -332,7 +375,7 @@ public class Game {
     public void enemyFire() {
         Random rand = new Random();
         boolean fire = false;
-        if (rand.nextInt(10)+1 == 1 && enemyBullets == null) {
+        if (rand.nextInt(3)+1 == 1 && enemyBullets == null) {
             fire = true;
         }
         if (enemies != null) {
