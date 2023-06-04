@@ -180,6 +180,17 @@ public class Game {
                 collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
             }
         } else {
+            if (inputSystem.isCreateBullet()) {
+                factory.addBullet(playerBullets, players.get(0).x() + players.get(0).w()/2, players.get(0).y() - GameCellsY/20, -3);
+                for (var bullet: playerBullets){
+                    if (!gameObjects.contains(bullet)) {
+                        updateGameObjects(bullet);
+                    }
+                }
+                playerBulletSystem.setBullets(playerBullets);
+                collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
+                collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
+            }
             for (var bullet: playerBulletSystem.getBullets()) {
                 if (bullet.getSizeComponent().isReachedEnd() || bullet.getHealthComponent().isDead()){
                     playerBullets.get(playerBulletSystem.getBullets().indexOf(bullet)).getHealthComponent().setDead(true);
@@ -283,7 +294,6 @@ public class Game {
         }*/
         if (collisionSystemPlayerBullet_Enemies.CollisionDetected()) {
             scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
-            System.out.println("Label: " + scores.get(0).getScoreComponent().getScore());
         }
         /*if (playerBullets != null) {
             collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
@@ -297,7 +307,7 @@ public class Game {
     public void bonusShine() {
         Random rand = new Random();
         if (rand.nextInt(3) + 1 == 2 && bonuses == null) {
-            bonuses = factory.createBonus();
+            bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize())+1);
             for (var bonus: bonuses) {
                 updateGameObjects(bonus);
             }
@@ -308,7 +318,7 @@ public class Game {
     public void enemyFire() {
         Random rand = new Random();
         boolean fire = false;
-        if (rand.nextInt(3)+1 == 1 && enemyBullets == null) {
+        if (rand.nextInt(10)+1 == 1 && enemyBullets == null) {
             fire = true;
         }
         if (enemies != null) {

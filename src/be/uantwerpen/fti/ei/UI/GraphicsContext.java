@@ -118,7 +118,6 @@ public class GraphicsContext {
         this.GameCellsX = GameCellsX;
         this.GameCellsY = GameCellsY;
         size = Math.min(ScreenWidth/GameCellsX, ScreenHeight/GameCellsY);
-        System.out.println("size: "+size);
         frame.setLocation(50,50);
         frame.setSize(ScreenWidth, ScreenHeight);
         loadImages();

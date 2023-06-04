@@ -76,9 +76,14 @@ public class Factory extends AbstractFactory {
     }
 
     @Override
-    public ArrayList<AbstractBonus> createBonus() {
+    public void addBullet(ArrayList<AbstractBullet> bulletArrayList, int x, int y, int dy) {
+        bulletArrayList.add(new Bullet(x,y,dy,grCtx));
+    }
+
+    @Override
+    public ArrayList<AbstractBonus> createBonus(int x) {
         ArrayList<AbstractBonus> list = new ArrayList<>();
-        list.add(new Bonus(grCtx));
+        list.add(new Bonus(x, grCtx));
         return list;
     }
 

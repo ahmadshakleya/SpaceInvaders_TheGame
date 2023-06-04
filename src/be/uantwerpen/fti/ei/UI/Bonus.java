@@ -12,8 +12,8 @@ public class Bonus extends AbstractBonus {
     private GraphicsContext grCtx;
     private BufferedImage image = null;
 
-    public Bonus(GraphicsContext grCtx) {
-        super(grCtx.getScreenWidth()/grCtx.getSize(), grCtx.getScreenHeight()/(grCtx.getSize()*7), -2, 0, 1, grCtx.getScreenWidth()/300,grCtx.getScreenHeight()/300, false, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+    public Bonus(int x, GraphicsContext grCtx) { // x = grCtx.getScreenWidth()/grCtx.getSize()
+        super(x, grCtx.getScreenHeight()/(grCtx.getSize()*7), 0, 1, 2, grCtx.getScreenWidth()/200,grCtx.getScreenHeight()/250, false, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.bonusSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }

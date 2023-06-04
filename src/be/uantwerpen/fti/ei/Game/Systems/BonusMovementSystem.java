@@ -17,10 +17,10 @@ public class BonusMovementSystem {
         if (bonuses != null) {
             for (var bonus: bonuses) {
                 if (teller >= bonus.snelheid()) {
-                    bonus.getPositionComponent().setX(bonus.x() + bonus.dx());
+                    bonus.getPositionComponent().setY(bonus.y() + bonus.dy());
                     overflow = true;
                 }
-                if (bonus.x() + bonus.dx() < 1) {
+                if (bonus.y() + bonus.dy() >= bonus.getSizeComponent().getScreenHeight() / bonus.getSizeComponent().getSize() - bonus.getCollisionComponent().getHitboxHeight()/2) {
                     bonus.getSizeComponent().setReachedEnd(true);
                 }
             }

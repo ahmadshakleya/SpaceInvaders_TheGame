@@ -23,7 +23,6 @@ public class Bullet extends AbstractBullet {
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.bulletSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
         try {
-            System.out.println(path+getSoundComponent().getSound());
             file = new File(path + getSoundComponent().getSound());
             AudioInputStream ais = AudioSystem.getAudioInputStream(file);
             DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
