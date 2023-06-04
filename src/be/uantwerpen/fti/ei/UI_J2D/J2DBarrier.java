@@ -1,18 +1,15 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_J2D;
 
 import be.uantwerpen.fti.ei.Game.Entities.AbstractBarrier;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-public class Barrier extends AbstractBarrier {
-    private GraphicsContext grCtx;
+public class J2DBarrier extends AbstractBarrier {
+    private J2DGraphicsContext grCtx;
     private BufferedImage image = null;
 
-    public Barrier(int x, GraphicsContext grCtx) {
+    public J2DBarrier(int x, J2DGraphicsContext grCtx) {
         super(x, 70*grCtx.getScreenHeight()/(grCtx.getSize()*100), 0, 0, 0, grCtx.getScreenWidth()/80, grCtx.getScreenHeight()/70, 5, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.barrierSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());

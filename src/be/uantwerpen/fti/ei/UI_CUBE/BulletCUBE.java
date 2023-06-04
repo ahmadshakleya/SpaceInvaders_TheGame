@@ -1,9 +1,7 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_CUBE;
 
-import be.uantwerpen.fti.ei.Game.Components.BulletComponent;
 import be.uantwerpen.fti.ei.Game.Entities.AbstractBullet;
 
-import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,16 +10,14 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
-public class Bullet extends AbstractBullet {
-    private GraphicsContext grCtx;
-    private BufferedImage image = null;
+public class BulletCUBE extends AbstractBullet {
+    private GraphicsContextCUBE grCtx;
     private Clip clip;
     private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
     private File file;
-    public Bullet(int x, int y, int dy, GraphicsContext grCtx) {
+    public BulletCUBE(int x, int y, int dy, GraphicsContextCUBE grCtx) {
         super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\bulletSound.wav");
         this.grCtx = grCtx;
-        image = grCtx.resizeImage(grCtx.bulletSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
         try {
             file = new File(path + getSoundComponent().getSound());
             AudioInputStream ais = AudioSystem.getAudioInputStream(file);
@@ -38,9 +34,8 @@ public class Bullet extends AbstractBullet {
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        //g2d.setColor(new Color(0, 0, 170));
-        //g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth()*size, getCollisionComponent().getHitboxHeight()*size);
-        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, null);
+        g2d.setColor(new Color(0, 0, 170));
+        g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth()*size, getCollisionComponent().getHitboxHeight()*size);
     }
 
 }

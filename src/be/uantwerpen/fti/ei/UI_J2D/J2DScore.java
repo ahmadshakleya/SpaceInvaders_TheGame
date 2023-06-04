@@ -1,12 +1,12 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_J2D;
 
 import be.uantwerpen.fti.ei.Game.Entities.AbstractLabel;
 
 import java.awt.*;
 
-public class Score extends AbstractLabel {
-    private GraphicsContext grCtx;
-    public Score(int score, GraphicsContext grCtx) {
+public class J2DScore extends AbstractLabel {
+    private J2DGraphicsContext grCtx;
+    public J2DScore(int score, J2DGraphicsContext grCtx) {
         super(1, 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, score, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
     }

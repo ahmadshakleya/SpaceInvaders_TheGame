@@ -1,4 +1,4 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_CUBE;
 
 import be.uantwerpen.fti.ei.Game.AbstractFactory;
 import be.uantwerpen.fti.ei.Game.Entities.*;
@@ -9,11 +9,12 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Factory extends AbstractFactory {
-    private GraphicsContext grCtx;
+public class FactoryCUBE extends AbstractFactory {
+    private GraphicsContextCUBE grCtx;
     private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
-    public Factory(String configFile) {
+    public FactoryCUBE(String configFile) {
         int screenWidth = 0, screenHeight = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(path+configFile))) {
             String line;
@@ -27,14 +28,14 @@ public class Factory extends AbstractFactory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        grCtx = new GraphicsContext(screenWidth, screenHeight);
+        grCtx = new GraphicsContextCUBE(screenWidth, screenHeight);
     }
 
 
     @Override
     public ArrayList<AbstractPlayer> createPlayer() {
         ArrayList<AbstractPlayer> list = new ArrayList<>();
-        list.add(new Player(grCtx));
+        list.add(new PlayerCUBE(grCtx));
         return list;
     }
 
@@ -45,7 +46,7 @@ public class Factory extends AbstractFactory {
         int offsetx = breedte_veld/2;
         int spacingx = breedte_veld;
         for (int i = 0; i < 4; i++){
-            list.add(new Barrier(offsetx+(spacingx*(i%5)), grCtx));
+            list.add(new BarrierCUBE(offsetx+(spacingx*(i%5)), grCtx));
         }
         return list;
     }
@@ -58,45 +59,49 @@ public class Factory extends AbstractFactory {
         int spacingx = grCtx.getScreenWidth()/ (grCtx.getSize()*15);
         int spacingy = grCtx.getScreenHeight()/(grCtx.getSize()*20);
         for (int i=0; i<50;i++){
-            list.add(new Enemy(offsetx+(spacingx*(i%10)), offsety + spacingy*(i / 10), grCtx));
+            list.add(new EnemyCUBE(offsetx+(spacingx*(i%10)), offsety + spacingy*(i / 10), grCtx));
         }
         return list;
     }
 
     @Override
     public AbstractInput createInput() {
-        return new Input(grCtx);
+        return new InputCUBE(grCtx);
     }
 
     @Override
     public ArrayList<AbstractBullet> createBullet(int x, int y, int dy) {
         ArrayList<AbstractBullet> list = new ArrayList<>();
-        list.add(new Bullet(x,y,dy,grCtx));
+        list.add(new BulletCUBE(x,y,dy,grCtx));
         return list;
     }
 
     @Override
     public void addBullet(ArrayList<AbstractBullet> bulletArrayList, int x, int y, int dy) {
-        bulletArrayList.add(new Bullet(x,y,dy,grCtx));
+        bulletArrayList.add(new BulletCUBE(x,y,dy,grCtx));
     }
 
     @Override
-    public ArrayList<AbstractBonus> createBonus(int x) {
+    public ArrayList<AbstractBonus> createBonus(int x, String type) {
         ArrayList<AbstractBonus> list = new ArrayList<>();
-        list.add(new Bonus(x, grCtx));
+        if (Objects.equals(type, "+")) {
+            list.add(new PositiveBonusCUBE(x, grCtx));
+        } else if (Objects.equals(type, "-")) {
+            list.add(new NegativeBonusCube(x, grCtx));
+        }
         return list;
     }
 
     @Override
     public ArrayList<AbstractLabel> createScore(int score) {
         ArrayList<AbstractLabel> list = new ArrayList<>();
-        list.add(new Score(score, grCtx));
+        list.add(new ScoreCUBE(score, grCtx));
         return list;
     }
     @Override
     public ArrayList<AbstractLabel> createLevel(int level) {
         ArrayList<AbstractLabel> list = new ArrayList<>();
-        list.add(new Level(level, grCtx));
+        list.add(new LevelCUBE(level, grCtx));
         return list;
     }
 

@@ -285,29 +285,28 @@ public class Game {
         enemyBulletSystem.updateBulletPosition();
     }
     public void updateCollisions() {
-        collisionSystemPlayerBullet_Bonus.CollisionDetected();
-        /*if (playerBullets != null) {
-            collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
+        if (collisionSystemPlayerBullet_Bonus.CollisionDetected()) {
+            scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Bonus.getFigures2().get(0).getScoreComponent().getScore());
+            if (scores.get(0).getScoreComponent().getScore() < 0) {
+                scores.get(0).getScoreComponent().setScore(0);
+            }
         }
-        if (bonuses != null) {
-            collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
-        }*/
         if (collisionSystemPlayerBullet_Enemies.CollisionDetected()) {
             scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
         }
-        /*if (playerBullets != null) {
-            collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
-        }
-        if (enemies != null) {
-            collisionSystemPlayerBullet_Enemies.setFigures2(new ArrayList<>(enemies));
-        }*/
         collisionSystemEnemyBullet_Barrier.CollisionDetected();
     }
 
     public void bonusShine() {
         Random rand = new Random();
-        if (rand.nextInt(3) + 1 == 2 && bonuses == null) {
-            bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize())+1);
+        int getal = rand.nextInt(3) + 1;
+        if (getal == 2 && bonuses == null) {
+            int type = rand.nextInt(100) + 1;
+            if (type % 2 == 0) {
+                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize()) + 1, "+");
+            } else {
+                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize())+1, "-");
+            }
             for (var bonus: bonuses) {
                 updateGameObjects(bonus);
             }

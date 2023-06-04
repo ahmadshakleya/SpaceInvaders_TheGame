@@ -1,13 +1,13 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_J2D;
 
 import be.uantwerpen.fti.ei.Game.Entities.AbstractLabel;
 
 import java.awt.*;
 
-public class Level extends AbstractLabel {
-    GraphicsContext grCtx;
+public class J2DLevel extends AbstractLabel {
+    J2DGraphicsContext grCtx;
 
-    public Level(int level, GraphicsContext grCtx) {
+    public J2DLevel(int level, J2DGraphicsContext grCtx) {
         super(20, 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, level, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
     }

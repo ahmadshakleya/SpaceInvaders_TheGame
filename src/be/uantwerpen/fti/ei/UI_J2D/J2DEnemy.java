@@ -1,20 +1,17 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_J2D;
 
 import be.uantwerpen.fti.ei.Game.Entities.AbstractEnemy;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-public class Enemy extends AbstractEnemy {
-    private GraphicsContext grCtx;
+public class J2DEnemy extends AbstractEnemy {
+    private J2DGraphicsContext grCtx;
     private int GameCellsX;
     private int GameCellsY;
     private BufferedImage image = null;
 
-    public Enemy(int x, int y, GraphicsContext grCtx) {
+    public J2DEnemy(int x, int y, J2DGraphicsContext grCtx) {
         super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 20, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.enemySprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());

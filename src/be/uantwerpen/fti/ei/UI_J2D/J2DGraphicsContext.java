@@ -1,4 +1,4 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_J2D;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class GraphicsContext {
+public class J2DGraphicsContext {
     private int ScreenWidth;
     private int ScreenHeight;
     private JFrame frame;
@@ -17,7 +17,8 @@ public class GraphicsContext {
     public BufferedImage backgroundImg;
     public BufferedImage playerSprite;
     public BufferedImage enemySprite;
-    public BufferedImage bonusSprite;
+    public BufferedImage positiveBonusSprite;
+    public BufferedImage negativeBonusSprite;
     public BufferedImage bulletSprite;
     public BufferedImage barrierSprite;
     private int size;                   // cel size
@@ -46,7 +47,8 @@ public class GraphicsContext {
         playerSprite = null;
         enemySprite = null;
         bulletSprite = null;
-        bonusSprite = null;
+        positiveBonusSprite = null;
+        negativeBonusSprite = null;
         barrierSprite = null;
         try {
             backgroundImg = ImageIO.read(new File("src/resource/ScreenshotStarfield.png"));
@@ -64,9 +66,9 @@ public class GraphicsContext {
             System.out.println("Unable to load enemy.png!");
         }
         try {
-            bonusSprite = ImageIO.read(new File("src/resource/bonus.png"));
+            positiveBonusSprite = ImageIO.read(new File("src/resource/positiveBonus.png"));
         } catch (IOException e) {
-            System.out.println("Unable to load bonus.png!");
+            System.out.println("Unable to load positiveBonus.png!");
         }
         try {
             bulletSprite = ImageIO.read(new File("src/resource/bullet.png"));
@@ -78,9 +80,15 @@ public class GraphicsContext {
         } catch (IOException e) {
             System.out.println("Unable to load barrier.png!");
         }
+        try {
+            negativeBonusSprite = ImageIO.read(new File("src/resource/negativeBonus.png"));
+        } catch (IOException e) {
+            System.out.println("Unable to load barrier.png!");
+        }
+
     }
 
-    public GraphicsContext(int screenWidth, int screenHeight) {
+    public J2DGraphicsContext(int screenWidth, int screenHeight) {
         ScreenWidth = screenWidth;
         ScreenHeight = screenHeight;
         frame = new JFrame();

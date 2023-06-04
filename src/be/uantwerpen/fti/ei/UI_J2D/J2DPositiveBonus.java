@@ -1,21 +1,18 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_J2D;
 
 import be.uantwerpen.fti.ei.Game.Entities.AbstractBonus;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-public class Bonus extends AbstractBonus {
-    private GraphicsContext grCtx;
+public class J2DPositiveBonus extends AbstractBonus {
+    private J2DGraphicsContext grCtx;
     private BufferedImage image = null;
 
-    public Bonus(int x, GraphicsContext grCtx) { // x = grCtx.getScreenWidth()/grCtx.getSize()
+    public J2DPositiveBonus(int x, J2DGraphicsContext grCtx) {
         super(x, grCtx.getScreenHeight()/(grCtx.getSize()*7), 0, 1, 2, grCtx.getScreenWidth()/200,grCtx.getScreenHeight()/250, false, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
-        image = grCtx.resizeImage(grCtx.bonusSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
+        image = grCtx.resizeImage(grCtx.positiveBonusSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }
 
     @Override

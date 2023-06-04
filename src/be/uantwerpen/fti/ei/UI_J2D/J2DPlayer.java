@@ -1,24 +1,17 @@
-package be.uantwerpen.fti.ei.UI;
+package be.uantwerpen.fti.ei.UI_J2D;
 
-import be.uantwerpen.fti.ei.Game.Components.MovementComponent;
-import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
 import be.uantwerpen.fti.ei.Game.Entities.AbstractPlayer;
-import be.uantwerpen.fti.ei.Game.Systems.PlayerMovementSystem;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import static java.lang.Math.max;
 
-public class Player extends AbstractPlayer {
-    private GraphicsContext grCtx;
+public class J2DPlayer extends AbstractPlayer {
+    private J2DGraphicsContext grCtx;
     private BufferedImage image = null;
 
-    public Player(GraphicsContext grCtx) {
+    public J2DPlayer(J2DGraphicsContext grCtx) {
         super(1, 90*grCtx.getScreenHeight()/(100*grCtx.getSize()), 0, 0, 0, grCtx.getScreenWidth()/100, grCtx.getScreenHeight()/200, 3, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), grCtx.getGameCellsX(), grCtx.getGameCellsY(), 0);
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.playerSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
