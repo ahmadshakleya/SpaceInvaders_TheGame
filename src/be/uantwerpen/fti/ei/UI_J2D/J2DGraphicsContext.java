@@ -19,8 +19,9 @@ public class J2DGraphicsContext {
     public BufferedImage enemySprite;
     public BufferedImage positiveBonusSprite;
     public BufferedImage negativeBonusSprite;
-    public BufferedImage bulletSprite;
+    public BufferedImage enemyBulletSprite;
     public BufferedImage barrierSprite;
+    public BufferedImage playerBulletSprite;
     private int size;                   // cel size
     private int GameCellsX;
     private int GameCellsY;
@@ -46,10 +47,11 @@ public class J2DGraphicsContext {
         backgroundImg = null;
         playerSprite = null;
         enemySprite = null;
-        bulletSprite = null;
+        enemyBulletSprite = null;
         positiveBonusSprite = null;
         negativeBonusSprite = null;
         barrierSprite = null;
+        playerBulletSprite = null;
         try {
             backgroundImg = ImageIO.read(new File("src/resource/ScreenshotStarfield.png"));
         } catch (IOException e) {
@@ -71,9 +73,14 @@ public class J2DGraphicsContext {
             System.out.println("Unable to load positiveBonus.png!");
         }
         try {
-            bulletSprite = ImageIO.read(new File("src/resource/bullet.png"));
+            enemyBulletSprite = ImageIO.read(new File("src/resource/enemyBullet.png"));
         } catch (IOException e) {
-            System.out.println("Unable to load bullet.png!");
+            System.out.println("Unable to load enemyBullet.png!");
+        }
+        try {
+            playerBulletSprite = ImageIO.read(new File("src/resource/playerBullet.png"));
+        } catch (IOException e) {
+            System.out.println("Unable to load enemyBullet.png!");
         }
         try {
             barrierSprite = ImageIO.read(new File("src/resource/barrier.png"));

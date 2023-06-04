@@ -34,7 +34,11 @@ public class BulletCUBE extends AbstractBullet {
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        g2d.setColor(new Color(0, 0, 170));
+        if (getMovementComponent().getDy() > 0) {
+            g2d.setColor(new Color(170, 0, 0));
+        } else {
+            g2d.setColor(new Color(0, 0, 170));
+        }
         g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth()*size, getCollisionComponent().getHitboxHeight()*size);
     }
 
