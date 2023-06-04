@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
+    // Singleton instance
+    private static Game single_instance = null;
     private boolean isRunning;
     private boolean isPaused;
     private ArrayList<AbstractBonus> bonuses;
@@ -39,8 +41,15 @@ public class Game {
     private int level = 0;
 
     private ArrayList<AbstractFigure> gameObjects = new ArrayList<>();
-    public Game(AbstractFactory abstractFactory) {
+    private Game(AbstractFactory abstractFactory) {
         this.factory = abstractFactory;
+    }
+    // Public static method to access the singleton instance
+    public static Game getInstance(AbstractFactory abstractFactory) {
+        if (single_instance == null) {
+            single_instance = new Game(abstractFactory);
+        }
+        return single_instance;
     }
 
     private void initGame(){
