@@ -32,9 +32,11 @@ public class InputSystem {
                 isPaused = !isPaused;
             }
             else {
-                for (var playerElement: player) {
-                    if (!playerElement.isDirectionChanged()) {
-                        playerElement.setDirection(direction);
+                if (player != null) {
+                    for (var playerElement : player) {
+                        if (!playerElement.isDirectionChanged()) {
+                            playerElement.setDirection(direction);
+                        }
                     }
                 }
             }

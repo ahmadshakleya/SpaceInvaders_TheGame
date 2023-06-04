@@ -158,6 +158,11 @@ public class Game {
                 }
                 factory.render();
             }
+            if (EndGame) {
+                gameObjects.clear();
+                updateGame();
+                factory.render();
+            }
             try {
                 Thread.sleep(60);
             } catch (InterruptedException e) {
@@ -212,10 +217,22 @@ public class Game {
     }
     public void updatePlayer() {
         if (players != null) {
+            for (var player: players) {
+                if (player.getHealthComponent().isDead()){
+                    removeGameObjects(player);
+                }
+            }
+            for (int i = 0; i < players.size(); i++) {
+                if (!gameObjects.contains(players.get(i))) {
+                    players.remove(players.get(i));
+                    i--;
+                }
+            }
             if (players.size() == 0) {
                 players = null;
                 playerMovementSystem.setPlayers(null);
                 inputSystem.setPlayer(null);
+                EndGame = true;
             }
         }
     }
@@ -353,6 +370,10 @@ public class Game {
             scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
         }
         collisionSystemEnemyBullet_Barrier.CollisionDetected();
+        if (collisionSystemEnemyBullet_Player.CollisionDetected()) {
+            healths.get(0).getScoreComponent().setScore(players.get(0).getHealthComponent().getHealthValue());
+        }
+
     }
 
     public void bonusShine() {
@@ -360,22 +381,24 @@ public class Game {
         int getal = rand.nextInt(3) + 1;
         if (getal == 2 && bonuses == null) {
             int type = rand.nextInt(100) + 1;
-            if (type % 2 == 0) {
-                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize() - players.get(0).getCollisionComponent().getHitboxWidth()), "+");
-            } else {
-                bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize() - players.get(0).getCollisionComponent().getHitboxWidth())+1, "-");
+            if (players != null) {
+                if (type % 2 == 0) {
+                    bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize() - players.get(0).getCollisionComponent().getHitboxWidth()), "+");
+                } else {
+                    bonuses = factory.createBonus(rand.nextInt(players.get(0).getSizeComponent().getScreenwidth() / players.get(0).getSizeComponent().getSize() - players.get(0).getCollisionComponent().getHitboxWidth()) + 1, "-");
+                }
+                for (var bonus: bonuses) {
+                    updateGameObjects(bonus);
+                }
+                bonusMovementSystem.setBonuses(bonuses);
+                collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
             }
-            for (var bonus: bonuses) {
-                updateGameObjects(bonus);
-            }
-            bonusMovementSystem.setBonuses(bonuses);
-            collisionSystemPlayerBullet_Bonus.setFigures2(new ArrayList<>(bonuses));
         }
     }
     public void enemyFire() {
         Random rand = new Random();
         boolean fire = false;
-        if (rand.nextInt(3)+1 == 1 && enemyBullets == null) {
+        if (rand.nextInt(2)+1 == 1 && enemyBullets == null) {
             fire = true;
         }
         if (enemies != null) {
