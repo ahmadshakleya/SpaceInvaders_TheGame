@@ -3,6 +3,7 @@ package be.uantwerpen.fti.ei.Game.Entities;
 import be.uantwerpen.fti.ei.Game.Components.CollisionComponent;
 import be.uantwerpen.fti.ei.Game.Components.MovementComponent;
 import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
+import be.uantwerpen.fti.ei.Game.Components.SoundComponent;
 
 /**
  * Represents an abstract barrier in the Space Invaders game.
@@ -38,7 +39,7 @@ public abstract class AbstractBarrier extends AbstractFigure {
                            int screenWidth,
                            int screenHeight,
                            int size) {
-        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, 0, screenWidth, screenHeight, size);
+        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, 0, screenWidth, screenHeight, size, null);
     }
 
 

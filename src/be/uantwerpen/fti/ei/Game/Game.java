@@ -9,6 +9,8 @@ import java.util.Random;
 public class Game {
     // Singleton instance
     private static Game single_instance = null;
+    private long lastUpdateTime = System.currentTimeMillis();
+    long currentTime, elapsedTime, sleepTime;
     private boolean isRunning;
     private boolean isPaused;
     private ArrayList<AbstractBonus> bonuses;
@@ -92,7 +94,7 @@ public class Game {
         collisionSystemEnemyBullet_Barrier = new CollisionSystem(null, new ArrayList<>(barriers));
     }
     private void loadNewLevel() {
-        level++;
+        levels.get(0).getLabelValueComponent().setLabelValue(levels.get(0).getLabelValueComponent().getLabelValue()+1);
         if (bonuses != null) {
             gameObjects.removeAll(bonuses);
             bonuses = null;
@@ -119,9 +121,33 @@ public class Game {
         collisionSystemEnemyBullet_Player.setFigures1(null);
         collisionSystemEnemyBullet_Barrier.setFigures1(null);
         collisionSystemEnemyBullet_Barrier.setFigures2(null);
+
+
+        int initialx = levels.get(0).x();
+        int initialy = levels.get(0).y();
+        int initialSize = levels.get(0).getSizeComponent().getSize();
+        levels.get(0).getPositionComponent().setX(levels.get(0).getSizeComponent().getScreenwidth() / (3* levels.get(0).getSizeComponent().getSize()));
+        levels.get(0).getPositionComponent().setY(levels.get(0).getSizeComponent().getScreenHeight() / (2* levels.get(0).getSizeComponent().getSize()));
+        levels.get(0).getSizeComponent().setSize(initialSize*3);
+        drawEntities();
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        drawEntities();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        levels.get(0).getPositionComponent().setX(initialx);
+        levels.get(0).getPositionComponent().setY(initialy);
+        levels.get(0).getSizeComponent().setSize(initialSize);
+
     }
     private void loadNewGame() {
-        levels.get(0).getScoreComponent().setScore(level);
+        level++;
         enemies = factory.createEnemy();
         for (var enemy: enemies) {
             updateGameObjects(enemy);
@@ -149,9 +175,13 @@ public class Game {
         isRunning = true;
         inputSystem.setPaused(false);
         while (isRunning) {
+            currentTime = System.currentTimeMillis();
+            elapsedTime = currentTime - lastUpdateTime;
+            lastUpdateTime = currentTime;
+
             inputSystem.updateInput();
             if (!inputSystem.isPaused() && !EndGame) {
-                if (levels.get(0).getScoreComponent().getScore() == level) {
+                if (levels.get(0).getLabelValueComponent().getLabelValue() == level) {
                     updateGame();
                 } else {
                     loadNewGame();
@@ -164,7 +194,12 @@ public class Game {
                 factory.render();
             }
             try {
-                Thread.sleep(60);
+                sleepTime = 150 - elapsedTime;
+                if (sleepTime > 0) {
+                    Thread.sleep(sleepTime);
+                } else {
+                    Thread.sleep(60);
+                }
             } catch (InterruptedException e) {
                 System.out.println(e.getStackTrace());
             }
@@ -256,45 +291,47 @@ public class Game {
         }
     }
     public void updatePlayerBullets() {
-        if (playerBullets ==  null) {
-            if (inputSystem.isCreateBullet()) {
-                playerBullets = factory.createBullet(players.get(0).x() + players.get(0).w()/2, players.get(0).y() - GameCellsY/20, -3);
-                for (var bullet: playerBullets) {
-                    updateGameObjects(bullet);
-                }
-                playerBulletSystem.setBullets(playerBullets);
-                collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
-                collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
-            }
-        } else {
-            if (inputSystem.isCreateBullet()) {
-                factory.addBullet(playerBullets, players.get(0).x() + players.get(0).w()/2, players.get(0).y() - GameCellsY/20, -3);
-                for (var bullet: playerBullets){
-                    if (!gameObjects.contains(bullet)) {
+        if (players != null) {
+            if (playerBullets == null) {
+                if (inputSystem.isCreateBullet()) {
+                    playerBullets = factory.createBullet(players.get(0).x() + players.get(0).w() / 2, players.get(0).y() - GameCellsY / 20, -3);
+                    for (var bullet : playerBullets) {
                         updateGameObjects(bullet);
                     }
+                    playerBulletSystem.setBullets(playerBullets);
+                    collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
+                    collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
                 }
-                playerBulletSystem.setBullets(playerBullets);
-                collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
-                collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
-            }
-            for (var bullet: playerBulletSystem.getBullets()) {
-                if (bullet.getSizeComponent().isReachedEnd() || bullet.getHealthComponent().isDead()){
-                    playerBullets.get(playerBulletSystem.getBullets().indexOf(bullet)).getHealthComponent().setDead(true);
-                    removeGameObjects(bullet);
+            } else {
+                if (inputSystem.isCreateBullet()) {
+                    factory.addBullet(playerBullets, players.get(0).x() + players.get(0).w() / 2, players.get(0).y() - GameCellsY / 20, -3);
+                    for (var bullet : playerBullets) {
+                        if (!gameObjects.contains(bullet)) {
+                            updateGameObjects(bullet);
+                        }
+                    }
+                    playerBulletSystem.setBullets(playerBullets);
+                    collisionSystemPlayerBullet_Bonus.setFigures1(new ArrayList<>(playerBullets));
+                    collisionSystemPlayerBullet_Enemies.setFigures1(new ArrayList<>(playerBullets));
                 }
-            }
-            for (int i = 0; i < playerBullets.size(); i++) {
-                if (!gameObjects.contains(playerBullets.get(i))) {
-                    playerBullets.remove(playerBullets.get(i));
-                    i--;
+                for (var bullet : playerBulletSystem.getBullets()) {
+                    if (bullet.getSizeComponent().isReachedEnd() || bullet.getHealthComponent().isDead()) {
+                        playerBullets.get(playerBulletSystem.getBullets().indexOf(bullet)).getHealthComponent().setDead(true);
+                        removeGameObjects(bullet);
+                    }
                 }
-            }
-            if (playerBullets.size() == 0) {
-                playerBullets = null;
-                playerBulletSystem.setBullets(null);
-                collisionSystemPlayerBullet_Bonus.setFigures1(null);
-                collisionSystemPlayerBullet_Enemies.setFigures1(null);
+                for (int i = 0; i < playerBullets.size(); i++) {
+                    if (!gameObjects.contains(playerBullets.get(i))) {
+                        playerBullets.remove(playerBullets.get(i));
+                        i--;
+                    }
+                }
+                if (playerBullets.size() == 0) {
+                    playerBullets = null;
+                    playerBulletSystem.setBullets(null);
+                    collisionSystemPlayerBullet_Bonus.setFigures1(null);
+                    collisionSystemPlayerBullet_Enemies.setFigures1(null);
+                }
             }
         }
     }
@@ -361,17 +398,17 @@ public class Game {
     }
     public void updateCollisions() {
         if (collisionSystemPlayerBullet_Bonus.CollisionDetected()) {
-            scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Bonus.getFigures2().get(0).getScoreComponent().getScore());
-            if (scores.get(0).getScoreComponent().getScore() < 0) {
-                scores.get(0).getScoreComponent().setScore(0);
+            scores.get(0).getLabelValueComponent().setLabelValue(scores.get(0).getLabelValueComponent().getLabelValue() + collisionSystemPlayerBullet_Bonus.getFigures2().get(0).getScoreComponent().getScore());
+            if (scores.get(0).getLabelValueComponent().getLabelValue() < 0) {
+                scores.get(0).getLabelValueComponent().setLabelValue(0);
             }
         }
         if (collisionSystemPlayerBullet_Enemies.CollisionDetected()) {
-            scores.get(0).getScoreComponent().setScore(scores.get(0).getScoreComponent().getScore() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
+            scores.get(0).getLabelValueComponent().setLabelValue(scores.get(0).getLabelValueComponent().getLabelValue() + collisionSystemPlayerBullet_Enemies.getFigures2().get(0).getScoreComponent().getScore());
         }
         collisionSystemEnemyBullet_Barrier.CollisionDetected();
         if (collisionSystemEnemyBullet_Player.CollisionDetected()) {
-            healths.get(0).getScoreComponent().setScore(players.get(0).getHealthComponent().getHealthValue());
+            healths.get(0).getLabelValueComponent().setLabelValue(players.get(0).getHealthComponent().getHealthValue());
         }
 
     }

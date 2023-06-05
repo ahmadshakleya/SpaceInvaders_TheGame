@@ -1,9 +1,6 @@
 package be.uantwerpen.fti.ei.Game.Entities;
 
-import be.uantwerpen.fti.ei.Game.Components.BonusComponent;
-import be.uantwerpen.fti.ei.Game.Components.CollisionComponent;
-import be.uantwerpen.fti.ei.Game.Components.MovementComponent;
-import be.uantwerpen.fti.ei.Game.Components.PositionComponent;
+import be.uantwerpen.fti.ei.Game.Components.*;
 
 /**
  * Represents an abstract bonus in the Space Invaders game.
@@ -42,8 +39,9 @@ public abstract class AbstractBonus extends AbstractFigure {
                          int score,
                          int screenWidth,
                          int screenHeight,
-                         int size) {
-        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, 1, score, screenWidth, screenHeight, size);
+                         int size,
+                         String soundFile) {
+        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, 1, score, screenWidth, screenHeight, size, soundFile);
         bonusComponent = new BonusComponent(bonusActief);
     }
 
@@ -117,5 +115,14 @@ public abstract class AbstractBonus extends AbstractFigure {
      */
     public void setCollisionComponent(CollisionComponent collisionComponent) {
         super.setCollisionComponent(collisionComponent);
+    }
+    @Override
+    public SoundComponent getSoundComponent() {
+        return super.getSoundComponent();
+    }
+
+    @Override
+    public void setSoundComponent(SoundComponent soundComponent) {
+        super.setSoundComponent(soundComponent);
     }
 }

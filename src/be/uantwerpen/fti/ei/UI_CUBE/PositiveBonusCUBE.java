@@ -8,7 +8,7 @@ public class PositiveBonusCUBE extends AbstractBonus {
     private GraphicsContextCUBE grCtx;
 
     public PositiveBonusCUBE(int x, GraphicsContextCUBE grCtx) {
-        super(x, grCtx.getScreenHeight()/(grCtx.getSize()*7), 0, 1, 2, grCtx.getScreenWidth()/200,grCtx.getScreenHeight()/250, false, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, grCtx.getScreenHeight()/(grCtx.getSize()*7), 0, 1, 2, grCtx.getScreenWidth()/200,grCtx.getScreenHeight()/250, false, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), null);
         this.grCtx = grCtx;
     }
 

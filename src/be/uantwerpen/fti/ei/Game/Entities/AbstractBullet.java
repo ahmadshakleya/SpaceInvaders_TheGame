@@ -10,7 +10,6 @@ import be.uantwerpen.fti.ei.Game.Components.*;
  */
 public abstract class AbstractBullet extends AbstractFigure {
     private BulletComponent bulletComponent;
-    private SoundComponent soundComponent;
 
     /**
      * Constructs an AbstractBullet object.
@@ -41,9 +40,8 @@ public abstract class AbstractBullet extends AbstractFigure {
                           int screenHeight,
                           int size,
                           String soundFile) {
-        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, 1, bonusScore, screenWidth, screenHeight, size);
+        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, 1, bonusScore, screenWidth, screenHeight, size, soundFile);
         this.bulletComponent = new BulletComponent(bulletActief);
-        this.soundComponent = new SoundComponent(soundFile);
     }
 
     /**
@@ -118,11 +116,13 @@ public abstract class AbstractBullet extends AbstractFigure {
         super.setCollisionComponent(collisionComponent);
     }
 
+    @Override
     public SoundComponent getSoundComponent() {
-        return soundComponent;
+        return super.getSoundComponent();
     }
 
+    @Override
     public void setSoundComponent(SoundComponent soundComponent) {
-        this.soundComponent = soundComponent;
+        super.setSoundComponent(soundComponent);
     }
 }

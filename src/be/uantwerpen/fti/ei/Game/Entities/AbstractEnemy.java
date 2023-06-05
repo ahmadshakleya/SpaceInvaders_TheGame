@@ -14,8 +14,9 @@ public abstract class AbstractEnemy extends AbstractFigure{
                          int enemyPoints,
                          int screenWidth,
                          int screenHeight,
-                         int size) {
-        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, enemyPoints, screenWidth, screenHeight, size);
+                         int size,
+                         String soundFile) {
+        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, enemyPoints, screenWidth, screenHeight, size, soundFile);
     }
 
     @Override
@@ -76,5 +77,15 @@ public abstract class AbstractEnemy extends AbstractFigure{
     @Override
     public void setSizeComponent(SizeComponent sizeComponent) {
         super.setSizeComponent(sizeComponent);
+    }
+
+    @Override
+    public SoundComponent getSoundComponent() {
+        return super.getSoundComponent();
+    }
+
+    @Override
+    public void setSoundComponent(SoundComponent soundComponent) {
+        super.setSoundComponent(soundComponent);
     }
 }

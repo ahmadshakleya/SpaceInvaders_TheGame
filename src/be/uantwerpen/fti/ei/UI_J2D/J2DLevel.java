@@ -16,10 +16,10 @@ public class J2DLevel extends AbstractLabel {
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        g2d.setFont(new Font("Arial", Font.BOLD, size*getCollisionComponent().getHitboxWidth()));
+        g2d.setFont(new Font("Arial", Font.BOLD, getSizeComponent().getSize()*getCollisionComponent().getHitboxWidth()));
         g2d.setColor(Color.WHITE);
 
         // Draw the score in the upper left corner
-        g2d.drawString("Level: " + getScoreComponent().getScore(), getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
+        g2d.drawString("Level: " + getLabelValueComponent().getLabelValue(), getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
     }
 }

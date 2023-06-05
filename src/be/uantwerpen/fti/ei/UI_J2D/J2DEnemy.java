@@ -12,7 +12,7 @@ public class J2DEnemy extends AbstractEnemy {
     private BufferedImage image = null;
 
     public J2DEnemy(int x, int y, J2DGraphicsContext grCtx) {
-        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 20, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 20, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), null);
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.enemySprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }

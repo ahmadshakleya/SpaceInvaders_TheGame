@@ -3,15 +3,17 @@ package be.uantwerpen.fti.ei.Game.Entities;
 import be.uantwerpen.fti.ei.Game.Components.*;
 
 public abstract class AbstractLabel extends AbstractFigure{
+    private LabelValueComponent labelValueComponent;
     public AbstractLabel(int x,
                          int y,
                          int breedte,
                          int lengte,
-                         int score,
+                         int labelValue,
                          int screenWidth,
                          int screenHeight,
                          int size) {
-        super(x, y, 0, 0, 0, breedte, lengte, 1, score, screenWidth, screenHeight, size);
+        super(x, y, 0, 0, 0, breedte, lengte, 1, 0, screenWidth, screenHeight, size, null);
+        this.labelValueComponent = new LabelValueComponent(labelValue);
     }
     @Override
     public PositionComponent getPositionComponent() {
@@ -71,5 +73,13 @@ public abstract class AbstractLabel extends AbstractFigure{
     @Override
     public void setSizeComponent(SizeComponent sizeComponent) {
         super.setSizeComponent(sizeComponent);
+    }
+
+    public LabelValueComponent getLabelValueComponent() {
+        return labelValueComponent;
+    }
+
+    public void setLabelValueComponent(LabelValueComponent labelValueComponent) {
+        this.labelValueComponent = labelValueComponent;
     }
 }

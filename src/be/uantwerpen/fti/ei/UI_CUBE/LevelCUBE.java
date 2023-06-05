@@ -15,11 +15,11 @@ public class LevelCUBE extends AbstractLabel {
     @Override
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
-        int size = grCtx.getSize();
-        g2d.setFont(new Font("Arial", Font.BOLD, size*getCollisionComponent().getHitboxWidth()));
+        //int size = grCtx.getSize();
+        g2d.setFont(new Font("Arial", Font.BOLD, getSizeComponent().getSize()*getCollisionComponent().getHitboxWidth()));
         g2d.setColor(Color.WHITE);
 
         // Draw the score in the upper left corner
-        g2d.drawString("Level: " + getScoreComponent().getScore(), getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
+        g2d.drawString("Level: " + getLabelValueComponent().getLabelValue(), getPositionComponent().getX()*getSizeComponent().getSize(), getPositionComponent().getY()*getSizeComponent().getSize() + 5);
     }
 }

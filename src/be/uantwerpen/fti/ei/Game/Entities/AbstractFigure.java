@@ -18,6 +18,7 @@ public abstract class AbstractFigure {
     private HealthComponent healthComponent;
     private ScoreComponent scoreComponent;
     private SizeComponent sizeComponent;
+    private SoundComponent soundComponent;
 
     /**
      * Constructs a new AbstractFigure with the specified parameters.
@@ -46,13 +47,15 @@ public abstract class AbstractFigure {
                           int score,
                           int screenWidth,
                           int screenHeight,
-                          int size) {
+                          int size,
+                          String soundFile) {
         this.positionComponent = new PositionComponent(x, y);
         this.movementComponent = new MovementComponent(dx, dy, traagheid);
         this.collisionComponent = new CollisionComponent(hitboxWidth, hitboxHeight);
         this.healthComponent = new HealthComponent(healthValue);
         this.scoreComponent = new ScoreComponent(score);
         this.sizeComponent = new SizeComponent(screenWidth, screenHeight, size);
+        this.soundComponent = new SoundComponent(soundFile);
     }
 
     /**
@@ -224,6 +227,14 @@ public abstract class AbstractFigure {
      */
     public int h() {
         return collisionComponent.getHitboxHeight();
+    }
+
+    public SoundComponent getSoundComponent() {
+        return soundComponent;
+    }
+
+    public void setSoundComponent(SoundComponent soundComponent) {
+        this.soundComponent = soundComponent;
     }
 
     /**

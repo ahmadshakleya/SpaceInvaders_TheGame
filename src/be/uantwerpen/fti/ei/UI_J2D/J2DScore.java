@@ -19,6 +19,6 @@ public class J2DScore extends AbstractLabel {
         g2d.setColor(Color.WHITE);
 
         // Draw the score in the upper left corner
-        g2d.drawString("Score: " + getScoreComponent().getScore(), getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
+        g2d.drawString("Score: " + getLabelValueComponent().getLabelValue(), getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
     }
 }

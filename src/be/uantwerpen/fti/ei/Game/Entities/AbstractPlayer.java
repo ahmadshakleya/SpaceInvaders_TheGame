@@ -25,8 +25,9 @@ public abstract class AbstractPlayer extends AbstractFigure{
                           int size,
                           int GameCellsX,
                           int GameCellsY,
-                          int level) {
-        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, HighScore, screenWidth, screenHeight, size);
+                          int level,
+                          String soundFile) {
+        super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, healthValue, HighScore, screenWidth, screenHeight, size, soundFile);
         this.GameCellsX = GameCellsX;
         this.GameCellsY = GameCellsY;
         this.levelComponent = new LevelComponent(level);

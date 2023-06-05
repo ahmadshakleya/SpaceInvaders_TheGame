@@ -27,7 +27,7 @@ public class J2DHealth extends AbstractLabel {
         g2d.drawString("Health:", getPositionComponent().getX()*size, getPositionComponent().getY()*size + 5);
         g2d.setColor(new Color(170,0,0));
         int offsetx = 5;
-        for (int healthValue = 1; healthValue <= getScoreComponent().getScore(); healthValue++) {
+        for (int healthValue = 1; healthValue <= getLabelValueComponent().getLabelValue(); healthValue++) {
             g2d.drawImage(image, (offsetx + super.getPositionComponent().getX() + 4*healthValue)*size, (super.getPositionComponent().getY() - 1)*size, null);
         }
     }

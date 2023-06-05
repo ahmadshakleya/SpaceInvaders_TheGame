@@ -16,6 +16,9 @@ public class J2DBullet extends AbstractBullet {
     private Clip clip;
     private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
     private File file;
+
+    private FloatControl volumeControl; // Added FloatControl reference
+
     public J2DBullet(int x, int y, int dy, J2DGraphicsContext grCtx) {
         super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\Audio\\bulletSound.wav");
         this.grCtx = grCtx;
@@ -30,9 +33,14 @@ public class J2DBullet extends AbstractBullet {
             DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(ais);
+            if (clip.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             throw new RuntimeException(e);
         }
+        float gain = (float) (Math.log10(0.1) * 20);
+        volumeControl.setValue(gain);
         clip.start();
     }
 
