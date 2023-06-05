@@ -4,6 +4,7 @@ import be.uantwerpen.fti.ei.Game.Entities.*;
 import be.uantwerpen.fti.ei.Game.Systems.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Game {
@@ -41,6 +42,7 @@ public class Game {
 
     private boolean EndGame = false;
     private int level = 1;
+    private int initialHealthvalue;
 
     private ArrayList<AbstractFigure> gameObjects = new ArrayList<>();
     private Game(AbstractFactory abstractFactory) {
@@ -57,6 +59,7 @@ public class Game {
     private void initGame(){
         players = factory.createPlayer();
         players.get(0).getLevelComponent().setLevel(level);
+        initialHealthvalue = players.get(0).getHealthComponent().getHealthValue();
         for (var player: players) {
             updateGameObjects(player);
         }
@@ -391,9 +394,14 @@ public class Game {
     }
     public void updateCollisions() {
         if (collisionSystemPlayerBullet_Bonus.CollisionDetected()) {
-            scores.get(0).getLabelValueComponent().setLabelValue(scores.get(0).getLabelValueComponent().getLabelValue() + collisionSystemPlayerBullet_Bonus.getFigures2().get(0).getScoreComponent().getScore());
-            if (scores.get(0).getLabelValueComponent().getLabelValue() < 0) {
-                scores.get(0).getLabelValueComponent().setLabelValue(0);
+            if (bonuses != null) {
+                if (Objects.equals(bonuses.get(0).getBonusComponent().getTypeBonus(), "+") && players.get(0).getHealthComponent().getHealthValue() < initialHealthvalue) {
+                    players.get(0).getHealthComponent().setHealthValue(players.get(0).getHealthComponent().getHealthValue()  +1);
+                } else if (Objects.equals(bonuses.get(0).getBonusComponent().getTypeBonus(), "-") && players.get(0).getHealthComponent().getHealthValue() > 0) {
+                    players.get(0).getHealthComponent().setHealthValue(players.get(0).getHealthComponent().getHealthValue()  -1);
+                }
+                healths.get(0).getHealthComponent().setHealthValue(players.get(0).getHealthComponent().getHealthValue());
+                healths.get(0).getLabelValueComponent().setLabelValue(healths.get(0).getHealthComponent().getHealthValue());
             }
         }
         if (collisionSystemPlayerBullet_Enemies.CollisionDetected()) {

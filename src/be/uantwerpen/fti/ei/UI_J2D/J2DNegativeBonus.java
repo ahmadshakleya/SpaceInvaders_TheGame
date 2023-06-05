@@ -10,7 +10,7 @@ public class J2DNegativeBonus extends AbstractBonus {
     private BufferedImage image = null;
 
     public J2DNegativeBonus(int x, J2DGraphicsContext grCtx) {
-        super(x, grCtx.getScreenHeight()/(grCtx.getSize()*7), 0, 1, 2, grCtx.getScreenWidth()/200,grCtx.getScreenHeight()/250, false, -10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), null);
+        super(x, grCtx.getScreenHeight()/(grCtx.getSize()*7), 0, 1, 2, grCtx.getScreenWidth()/200,grCtx.getScreenHeight()/250, "-", -10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), null);
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.negativeBonusSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }

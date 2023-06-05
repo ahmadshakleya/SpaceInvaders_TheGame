@@ -8,7 +8,7 @@ public class J2DLevel extends AbstractLabel {
     J2DGraphicsContext grCtx;
 
     public J2DLevel(int level, J2DGraphicsContext grCtx) {
-        super(20, 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, level, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(grCtx.getScreenWidth()/ (4*grCtx.getSize()), 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, level, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
     }
 

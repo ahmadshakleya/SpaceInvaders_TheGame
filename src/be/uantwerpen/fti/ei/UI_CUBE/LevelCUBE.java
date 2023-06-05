@@ -8,7 +8,7 @@ public class LevelCUBE extends AbstractLabel {
     GraphicsContextCUBE grCtx;
 
     public LevelCUBE(int level, GraphicsContextCUBE grCtx) {
-        super(20, 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, level, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(grCtx.getScreenWidth()/ (4*grCtx.getSize()), 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, level, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
     }
 

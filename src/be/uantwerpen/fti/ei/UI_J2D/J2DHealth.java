@@ -11,7 +11,7 @@ public class J2DHealth extends AbstractLabel {
     private BufferedImage image = null;
 
     public J2DHealth(int health, J2DGraphicsContext grCtx) {
-        super(40, 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, health, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
+        super(grCtx.getScreenWidth()/ (2*grCtx.getSize()), 1, grCtx.getScreenWidth()/300, grCtx.getScreenHeight()/200, health, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize());
         this.grCtx = grCtx;
         image = grCtx.resizeImage(grCtx.playerSprite, getCollisionComponent().getHitboxWidth()*grCtx.getSize(), getCollisionComponent().getHitboxHeight()*grCtx.getSize());
     }

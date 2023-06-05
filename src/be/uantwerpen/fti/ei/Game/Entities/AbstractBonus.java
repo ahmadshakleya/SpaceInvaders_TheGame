@@ -22,7 +22,6 @@ public abstract class AbstractBonus extends AbstractFigure {
      * @param traagheid the inertia of the bonus's movement
      * @param hitboxWidth the width of the bonus's collision hitbox
      * @param hitboxHeight the height of the bonus's collision hitbox
-     * @param bonusActief indicates whether the bonus is active or not
      * @param score the score of the bonus
      * @param screenWidth the width of the game screen
      * @param screenHeight the height of the game screen
@@ -35,14 +34,14 @@ public abstract class AbstractBonus extends AbstractFigure {
                          int traagheid,
                          int hitboxWidth,
                          int hitboxHeight,
-                         boolean bonusActief,
+                         String typeBonus,
                          int score,
                          int screenWidth,
                          int screenHeight,
                          int size,
                          String soundFile) {
         super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, 1, score, screenWidth, screenHeight, size, soundFile);
-        bonusComponent = new BonusComponent(bonusActief);
+        bonusComponent = new BonusComponent(typeBonus);
     }
 
     /**
