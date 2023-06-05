@@ -289,7 +289,7 @@ public class Game {
         if (players != null) {
             if (playerBullets == null) {
                 if (inputSystem.isCreateBullet()) {
-                    playerBullets = factory.createBullet(players.get(0).x() + players.get(0).w() / 2, players.get(0).y() - GameCellsY / 20, -3);
+                    playerBullets = factory.createBullet(players.get(0).x() + players.get(0).w() / 2, players.get(0).y() - 2, -3);
                     for (var bullet : playerBullets) {
                         updateGameObjects(bullet);
                     }
@@ -300,7 +300,7 @@ public class Game {
             } else {
                 if (level >= 2) {
                     if (inputSystem.isCreateBullet()) {
-                        factory.addBullet(playerBullets, players.get(0).x() + players.get(0).w() / 2, players.get(0).y() - GameCellsY / 20, -3);
+                        factory.addBullet(playerBullets, players.get(0).x() + players.get(0).w() / 2, players.get(0).y() - 2, -3);
                         for (var bullet : playerBullets) {
                             if (!gameObjects.contains(bullet)) {
                                 updateGameObjects(bullet);
