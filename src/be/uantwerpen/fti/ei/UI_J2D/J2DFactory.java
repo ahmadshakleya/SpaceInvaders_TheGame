@@ -29,10 +29,11 @@ public class J2DFactory extends AbstractFactory {
         try (BufferedReader br = new BufferedReader(new FileReader(path + configFile))) {
             String line;
             while ((line = br.readLine()) != null) {
+                int i = Integer.parseInt(line.substring(line.indexOf(":") + 1));
                 if (line.startsWith("ScreenWidth:")) {
-                    screenWidth = Integer.parseInt(line.substring(line.indexOf(":") + 1));
+                    screenWidth = i;
                 } else if (line.startsWith("ScreenHeight:")) {
-                    screenHeight = Integer.parseInt(line.substring(line.indexOf(":") + 1));
+                    screenHeight = i;
                 }
             }
         } catch (IOException e) {

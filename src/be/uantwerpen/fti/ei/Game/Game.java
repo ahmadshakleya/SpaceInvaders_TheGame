@@ -4,7 +4,6 @@ import be.uantwerpen.fti.ei.Game.Entities.*;
 import be.uantwerpen.fti.ei.Game.Systems.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 /**
@@ -17,7 +16,6 @@ public class Game {
     private static Game single_instance = null;
     private long lastUpdateTime = System.currentTimeMillis();
     long currentTime, elapsedTime, sleepTime;
-    private boolean isPaused;
     private ArrayList<AbstractBonus> bonuses;
     private ArrayList<AbstractPlayer> players;
     private ArrayList<AbstractBarrier> barriers;
@@ -97,6 +95,7 @@ public class Game {
         }
         bonusMovementSystem = new BonusMovementSystem(bonuses);
         playerMovementSystem = new PlayerMovementSystem(players);
+        boolean isPaused = false;
         inputSystem = new InputSystem(input, players, isPaused);
         playerBulletSystem = new BulletSystem(null);
         enemyBulletSystem = new BulletSystem(null);
@@ -584,7 +583,6 @@ public class Game {
      */
     public void enemyFire() {
         Random rand = new Random();
-        boolean fire = false;
         if (enemies != null) {
             int enemyNumber = rand.nextInt(enemies.size());
             int fireGetal = 22 - 2 * level;

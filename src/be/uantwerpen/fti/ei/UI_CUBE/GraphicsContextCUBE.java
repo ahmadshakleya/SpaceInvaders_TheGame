@@ -47,21 +47,6 @@ public class GraphicsContextCUBE {
     }
 
     /**
-     * Resizes an image to the specified dimensions.
-     *
-     * @param originalImage The original image to be resized.
-     * @param targetWidth   The target width of the resized image.
-     * @param targetHeight  The target height of the resized image.
-     * @return The resized BufferedImage object.
-     */
-    public BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
-        Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
-        BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR_PRE);
-        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
-        return outputImage;
-    }
-
-    /**
      * Constructs a new GraphicsContextCUBE object.
      *
      * @param screenWidth  The screen width.

@@ -9,7 +9,7 @@ import be.uantwerpen.fti.ei.Game.Components.*;
  * @author Ahmad Shakleya
  */
 public abstract class AbstractLabel extends AbstractFigure {
-    private LabelValueComponent labelValueComponent;
+    private final LabelValueComponent labelValueComponent;
 
     /**
      * Constructs an AbstractLabel object.
@@ -162,14 +162,5 @@ public abstract class AbstractLabel extends AbstractFigure {
      */
     public LabelValueComponent getLabelValueComponent() {
         return labelValueComponent;
-    }
-
-    /**
-     * Sets the label value component of the label.
-     *
-     * @param labelValueComponent The label value component to set.
-     */
-    public void setLabelValueComponent(LabelValueComponent labelValueComponent) {
-        this.labelValueComponent = labelValueComponent;
     }
 }
