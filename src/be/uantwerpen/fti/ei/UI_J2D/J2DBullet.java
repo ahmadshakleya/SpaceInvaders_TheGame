@@ -10,25 +10,37 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+/**
+ * Represents a bullet in the J2D UI.
+ *
+ * @author Ahmad Shakleya
+ */
 public class J2DBullet extends AbstractBullet {
-    private J2DGraphicsContext grCtx;
-    private BufferedImage image = null;
-    private Clip clip;
-    private Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
-    private File file;
+    private final J2DGraphicsContext grCtx;
+    private final BufferedImage image;
 
     private FloatControl volumeControl; // Added FloatControl reference
 
+    /**
+     * Constructs a J2DBullet object with the specified coordinates and graphics context.
+     *
+     * @param x     The x-coordinate of the bullet.
+     * @param y     The y-coordinate of the bullet.
+     * @param dy    The vertical velocity of the bullet.
+     * @param grCtx The J2DGraphicsContext object.
+     */
     public J2DBullet(int x, int y, int dy, J2DGraphicsContext grCtx) {
-        super(x, y, 0, dy,0, grCtx.getScreenWidth()/500, grCtx.getScreenHeight()/200, true, 0,  grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\Audio\\bulletSound.wav");
+        super(x, y, 0, dy, 0, grCtx.getScreenWidth() / 500, grCtx.getScreenHeight() / 200, 0, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), "\\src\\resource\\Audio\\bulletSound.wav");
         this.grCtx = grCtx;
         if (dy > 0) {
             image = grCtx.resizeImage(grCtx.enemyBulletSprite, getCollisionComponent().getHitboxWidth() * grCtx.getSize(), getCollisionComponent().getHitboxHeight() * grCtx.getSize());
         } else {
             image = grCtx.resizeImage(grCtx.playerBulletSprite, getCollisionComponent().getHitboxWidth() * grCtx.getSize(), getCollisionComponent().getHitboxHeight() * grCtx.getSize());
         }
+        Clip clip;
         try {
-            file = new File(path + getSoundComponent().getSound());
+            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+            File file = new File(path + getSoundComponent().getSound());
             AudioInputStream ais = AudioSystem.getAudioInputStream(file);
             DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
             clip = (Clip) AudioSystem.getLine(info);
@@ -44,13 +56,13 @@ public class J2DBullet extends AbstractBullet {
         clip.start();
     }
 
+    /**
+     * Draws the bullet on the graphics context.
+     */
     @Override
     public void draw() {
         Graphics2D g2d = grCtx.getG2d();
         int size = grCtx.getSize();
-        //g2d.setColor(new Color(0, 0, 170));
-        //g2d.fillRect(super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, getCollisionComponent().getHitboxWidth()*size, getCollisionComponent().getHitboxHeight()*size);
-        g2d.drawImage(image, super.getPositionComponent().getX()*size, super.getPositionComponent().getY()*size, null);
+        g2d.drawImage(image, super.getPositionComponent().getX() * size, super.getPositionComponent().getY() * size, null);
     }
-
 }

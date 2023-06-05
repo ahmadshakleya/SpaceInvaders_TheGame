@@ -10,22 +10,24 @@ import be.uantwerpen.fti.ei.Game.Components.*;
  * @author Ahmad Shakleya
  */
 public abstract class AbstractBonus extends AbstractFigure {
-    private BonusComponent bonusComponent;
+    private final BonusComponent bonusComponent;
 
     /**
      * Constructs a new AbstractBonus with the specified parameters.
      *
-     * @param x the initial x-coordinate of the bonus
-     * @param y the initial y-coordinate of the bonus
-     * @param dx the horizontal speed of the bonus
-     * @param dy the vertical speed of the bonus
-     * @param traagheid the inertia of the bonus's movement
-     * @param hitboxWidth the width of the bonus's collision hitbox
-     * @param hitboxHeight the height of the bonus's collision hitbox
-     * @param score the score of the bonus
-     * @param screenWidth the width of the game screen
-     * @param screenHeight the height of the game screen
-     * @param size the size of the bonus
+     * @param x              the initial x-coordinate of the bonus
+     * @param y              the initial y-coordinate of the bonus
+     * @param dx             the horizontal speed of the bonus
+     * @param dy             the vertical speed of the bonus
+     * @param traagheid      the inertia of the bonus's movement
+     * @param hitboxWidth    the width of the bonus's collision hitbox
+     * @param hitboxHeight   the height of the bonus's collision hitbox
+     * @param typeBonus      the type of bonus
+     * @param score          the score of the bonus
+     * @param screenWidth   the width of the game screen
+     * @param screenHeight  the height of the game screen
+     * @param size           the size of the bonus
+     * @param soundFile      the sound file associated with the bonus
      */
     public AbstractBonus(int x,
                          int y,
@@ -90,15 +92,6 @@ public abstract class AbstractBonus extends AbstractFigure {
     }
 
     /**
-     * Sets the bonus component of the bonus.
-     *
-     * @param bonusComponent the bonus component to set
-     */
-    public void setBonusComponent(BonusComponent bonusComponent) {
-        this.bonusComponent = bonusComponent;
-    }
-
-    /**
      * Retrieves the collision component of the bonus.
      *
      * @return the collision component
@@ -115,11 +108,22 @@ public abstract class AbstractBonus extends AbstractFigure {
     public void setCollisionComponent(CollisionComponent collisionComponent) {
         super.setCollisionComponent(collisionComponent);
     }
+
+    /**
+     * Retrieves the sound component of the bonus.
+     *
+     * @return the sound component
+     */
     @Override
     public SoundComponent getSoundComponent() {
         return super.getSoundComponent();
     }
 
+    /**
+     * Sets the sound component of the bonus.
+     *
+     * @param soundComponent the sound component to set
+     */
     @Override
     public void setSoundComponent(SoundComponent soundComponent) {
         super.setSoundComponent(soundComponent);

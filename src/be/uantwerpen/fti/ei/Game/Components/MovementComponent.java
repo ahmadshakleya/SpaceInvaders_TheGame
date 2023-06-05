@@ -1,4 +1,5 @@
 package be.uantwerpen.fti.ei.Game.Components;
+
 /**
  * Represents a movement component in the Space Invaders game.
  * The movement component defines the velocity and inertia of an entity.
@@ -10,19 +11,22 @@ public class MovementComponent {
      * The velocity of the entity along the x-axis.
      */
     private int dx;
+
     /**
      * The velocity of the entity along the y-axis.
      */
     private int dy;
+
     /**
      * The inertia or resistance to changes in velocity of the entity.
      */
-    private int traagheid;
+    private final int traagheid;
+
     /**
      * Constructs a new MovementComponent with the specified velocities and inertia.
      *
-     * @param dx the velocity of the entity along the x-axis
-     * @param dy the velocity of the entity along the y-axis
+     * @param dx        the velocity of the entity along the x-axis
+     * @param dy        the velocity of the entity along the y-axis
      * @param traagheid the inertia or resistance to changes in velocity
      */
     public MovementComponent(int dx, int dy, int traagheid) {
@@ -30,6 +34,7 @@ public class MovementComponent {
         this.dy = dy;
         this.traagheid = traagheid;
     }
+
     /**
      * Retrieves the velocity of the entity along the x-axis.
      *
@@ -38,6 +43,7 @@ public class MovementComponent {
     public int getDx() {
         return dx;
     }
+
     /**
      * Sets the velocity of the entity along the x-axis.
      *
@@ -46,6 +52,7 @@ public class MovementComponent {
     public void setDx(int dx) {
         this.dx = dx;
     }
+
     /**
      * Retrieves the velocity of the entity along the y-axis.
      *
@@ -54,6 +61,7 @@ public class MovementComponent {
     public int getDy() {
         return dy;
     }
+
     /**
      * Sets the velocity of the entity along the y-axis.
      *
@@ -62,6 +70,7 @@ public class MovementComponent {
     public void setDy(int dy) {
         this.dy = dy;
     }
+
     /**
      * Retrieves the inertia or resistance to changes in velocity of the entity.
      *
@@ -69,14 +78,5 @@ public class MovementComponent {
      */
     public int getTraagheid() {
         return traagheid;
-    }
-
-    /**
-     * Sets the inertia or resistance to changes in velocity of the entity.
-     *
-     * @param traagheid the new inertia of the entity
-     */
-    public void setTraagheid(int traagheid) {
-        this.traagheid = traagheid;
     }
 }

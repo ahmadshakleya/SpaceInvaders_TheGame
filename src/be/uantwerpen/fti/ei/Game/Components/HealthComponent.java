@@ -4,6 +4,7 @@ package be.uantwerpen.fti.ei.Game.Components;
  * Represents a health component in the Space Invaders game.
  * The health component maintains the health value of an entity and determines if it is dead.
  *
+ *
  * @author Ahmad Shakleya
  */
 public class HealthComponent {
@@ -11,10 +12,12 @@ public class HealthComponent {
      * The current health value of the entity.
      */
     private int healthValue;
+
     /**
      * Indicates whether the entity is dead or not.
      */
     private boolean dead = false;
+
     /**
      * Constructs a new HealthComponent with the specified health value.
      *
@@ -23,6 +26,7 @@ public class HealthComponent {
     public HealthComponent(int healthValue) {
         this.healthValue = healthValue;
     }
+
     /**
      * Retrieves the current health value of the entity.
      *
@@ -31,6 +35,7 @@ public class HealthComponent {
     public int getHealthValue() {
         return healthValue;
     }
+
     /**
      * Sets the current health value of the entity.
      *
@@ -39,6 +44,7 @@ public class HealthComponent {
     public void setHealthValue(int healthValue) {
         this.healthValue = healthValue;
     }
+
     /**
      * Checks if the entity is dead.
      * An entity is considered dead when its health value reaches zero.
@@ -49,6 +55,7 @@ public class HealthComponent {
         dead = (healthValue == 0);
         return dead;
     }
+
     /**
      * Sets the dead state of the entity.
      *

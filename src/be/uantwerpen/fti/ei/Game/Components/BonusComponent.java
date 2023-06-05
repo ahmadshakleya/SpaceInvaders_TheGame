@@ -8,19 +8,25 @@ package be.uantwerpen.fti.ei.Game.Components;
  */
 public class BonusComponent {
     /**
-     * Indicates whether the bonus is active or not.
+     * Indicates the type of bonus that is active.
      */
-    private String typeBonus;
+    private final String typeBonus;
 
+    /**
+     * Constructs a BonusComponent object with the specified type of bonus.
+     *
+     * @param typeBonus the type of bonus
+     */
     public BonusComponent(String typeBonus) {
         this.typeBonus = typeBonus;
     }
 
+    /**
+     * Gets the type of bonus that is active.
+     *
+     * @return the type of bonus
+     */
     public String getTypeBonus() {
         return typeBonus;
-    }
-
-    public void setTypeBonus(String typeBonus) {
-        this.typeBonus = typeBonus;
     }
 }

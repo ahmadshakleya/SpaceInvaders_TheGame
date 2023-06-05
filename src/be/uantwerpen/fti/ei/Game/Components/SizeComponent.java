@@ -4,6 +4,7 @@ package be.uantwerpen.fti.ei.Game.Components;
  * Represents a size component in the Space Invaders game.
  * The size component defines the dimensions and size-related properties of an entity in the game world.
  *
+ *
  * @author Ahmad Shakleya
  */
 public class SizeComponent {
@@ -73,7 +74,7 @@ public class SizeComponent {
      *
      * @param screenWidth the new screen width
      */
-    public void setScreenWidth(int screenWidth) {
+    public void setScreenwidth(int screenWidth) {
         this.screenWidth = screenWidth;
     }
 

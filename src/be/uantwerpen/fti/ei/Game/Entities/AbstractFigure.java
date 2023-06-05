@@ -4,10 +4,8 @@ import be.uantwerpen.fti.ei.Game.Components.*;
 
 /**
  * Represents an abstract figure in the Space Invaders game.
- * An abstract figure has position, movement, collision, health, score, and size components.
+ * An abstract figure has position, movement, collision, health, score, size, and sound components.
  * This class provides a base implementation for entities in the game.
- *
- * Note: This class is abstract and cannot be instantiated directly. It serves as a base class for concrete figure entities.
  *
  * @author Ahmad Shakleya
  */
@@ -23,32 +21,22 @@ public abstract class AbstractFigure {
     /**
      * Constructs a new AbstractFigure with the specified parameters.
      *
-     * @param x the initial x-coordinate of the figure
-     * @param y the initial y-coordinate of the figure
-     * @param dx the horizontal speed of the figure
-     * @param dy the vertical speed of the figure
-     * @param traagheid the inertia of the figure's movement
-     * @param hitboxWidth the width of the figure's collision hitbox
-     * @param hitboxHeight the height of the figure's collision hitbox
-     * @param healthValue the health value of the figure
-     * @param score the score of the figure
-     * @param screenWidth the width of the game screen
-     * @param screenHeight the height of the game screen
-     * @param size the size of the figure
+     * @param x              the initial x-coordinate of the figure
+     * @param y              the initial y-coordinate of the figure
+     * @param dx             the horizontal speed of the figure
+     * @param dy             the vertical speed of the figure
+     * @param traagheid      the inertia of the figure's movement
+     * @param hitboxWidth    the width of the figure's collision hitbox
+     * @param hitboxHeight   the height of the figure's collision hitbox
+     * @param healthValue    the health value of the figure
+     * @param score          the score of the figure
+     * @param screenWidth   the width of the game screen
+     * @param screenHeight  the height of the game screen
+     * @param size           the size of the figure
+     * @param soundFile      the sound file associated with the figure
      */
-    public AbstractFigure(int x,
-                          int y,
-                          int dx,
-                          int dy,
-                          int traagheid,
-                          int hitboxWidth,
-                          int hitboxHeight,
-                          int healthValue,
-                          int score,
-                          int screenWidth,
-                          int screenHeight,
-                          int size,
-                          String soundFile) {
+    public AbstractFigure(int x, int y, int dx, int dy, int traagheid, int hitboxWidth, int hitboxHeight,
+                          int healthValue, int score, int screenWidth, int screenHeight, int size, String soundFile) {
         this.positionComponent = new PositionComponent(x, y);
         this.movementComponent = new MovementComponent(dx, dy, traagheid);
         this.collisionComponent = new CollisionComponent(hitboxWidth, hitboxHeight);
@@ -57,6 +45,8 @@ public abstract class AbstractFigure {
         this.sizeComponent = new SizeComponent(screenWidth, screenHeight, size);
         this.soundComponent = new SoundComponent(soundFile);
     }
+
+    // Getter and setter methods for the components
 
     /**
      * Retrieves the position component of the figure.
@@ -167,6 +157,26 @@ public abstract class AbstractFigure {
     }
 
     /**
+     * Retrieves the sound component of the figure.
+     *
+     * @return the sound component
+     */
+    public SoundComponent getSoundComponent() {
+        return soundComponent;
+    }
+
+    /**
+     * Sets the sound component of the figure.
+     *
+     * @param soundComponent the sound component to set
+     */
+    public void setSoundComponent(SoundComponent soundComponent) {
+        this.soundComponent = soundComponent;
+    }
+
+    // Helper methods to retrieve figure properties
+
+    /**
      * Retrieves the x-coordinate of the figure.
      *
      * @return the x-coordinate
@@ -229,18 +239,8 @@ public abstract class AbstractFigure {
         return collisionComponent.getHitboxHeight();
     }
 
-    public SoundComponent getSoundComponent() {
-        return soundComponent;
-    }
-
-    public void setSoundComponent(SoundComponent soundComponent) {
-        this.soundComponent = soundComponent;
-    }
-
     /**
      * Abstract method to draw the figure.
      */
     public abstract void draw();
-
-    //public abstract void update();
 }

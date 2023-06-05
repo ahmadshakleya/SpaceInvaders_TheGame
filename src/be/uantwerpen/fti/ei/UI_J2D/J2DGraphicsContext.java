@@ -6,12 +6,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * The J2DGraphicsContext class manages the graphical context in a Java 2D-based game.
+ * It handles rendering, loading images, and setting up the game dimensions.
+ *
+ * @author Ahmad Shakleya
+ */
 public class J2DGraphicsContext {
     private int ScreenWidth;
     private int ScreenHeight;
-    private JFrame frame;
-    private JPanel panel;
+    private final JFrame frame;
+    private final JPanel panel;
     private BufferedImage g2dimage;     // used for drawing
     private Graphics2D g2d;             // always draw in this one
     public BufferedImage backgroundImg;
@@ -23,26 +28,51 @@ public class J2DGraphicsContext {
     public BufferedImage barrierSprite;
     public BufferedImage playerBulletSprite;
     private int size;                   // cel size
-    private int GameCellsX;
-    private int GameCellsY;
 
+    /**
+     * Get the Graphics2D object for drawing.
+     *
+     * @return The Graphics2D object.
+     */
     public Graphics2D getG2d() {
         return g2d;
     }
+
+    /**
+     * Get the JFrame object associated with the graphics context.
+     *
+     * @return The JFrame object.
+     */
     public JFrame getFrame() {
         return frame;
     }
+
+    /**
+     * Get the size of the cell.
+     *
+     * @return The cell size.
+     */
     public int getSize() {
         return size;
     }
 
-    public BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight){
+    /**
+     * Resize the given BufferedImage to the specified target width and height.
+     *
+     * @param originalImage The original BufferedImage to be resized.
+     * @param targetWidth   The target width for resizing.
+     * @param targetHeight  The target height for resizing.
+     * @return The resized BufferedImage.
+     */
+    public BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
         Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
         BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR_PRE);
         outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
         return outputImage;
     }
-
+    /**
+     * Load the required images for the game from files.
+     */
     private void loadImages() {
         backgroundImg = null;
         playerSprite = null;
@@ -80,7 +110,7 @@ public class J2DGraphicsContext {
         try {
             playerBulletSprite = ImageIO.read(new File("src/resource/Sprites/playerBullet.png"));
         } catch (IOException e) {
-            System.out.println("Unable to load enemyBullet.png!");
+            System.out.println("Unable to load playerBullet.png!");
         }
         try {
             barrierSprite = ImageIO.read(new File("src/resource/Sprites/barrier.png"));
@@ -90,11 +120,16 @@ public class J2DGraphicsContext {
         try {
             negativeBonusSprite = ImageIO.read(new File("src/resource/Sprites/negativeBonus.png"));
         } catch (IOException e) {
-            System.out.println("Unable to load barrier.png!");
+            System.out.println("Unable to load negativeBonus.png!");
         }
 
     }
-
+    /**
+     * Constructs a J2DGraphicsContext with the specified screen width and height.
+     *
+     * @param screenWidth  The width of the screen.
+     * @param screenHeight The height of the screen.
+     */
     public J2DGraphicsContext(int screenWidth, int screenHeight) {
         ScreenWidth = screenWidth;
         ScreenHeight = screenHeight;
@@ -108,7 +143,7 @@ public class J2DGraphicsContext {
         };
         frame.setFocusable(true);
         frame.add(panel);
-        frame.setTitle("Graphics example");
+        frame.setTitle("Space Invaders");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(ScreenWidth, ScreenHeight);
         frame.setResizable(true);
@@ -116,66 +151,86 @@ public class J2DGraphicsContext {
         frame.setVisible(true);
     }
 
+    /**
+     * Repaints the panel.
+     */
     public void render() {
         panel.repaint();
     }
-
+    /**
+     * Removes the game graphics.
+     */
+    public void close() {
+        frame.dispose();
+    }
+    /**
+     * Draws the graphics using the specified Graphics object.
+     *
+     * @param g The Graphics object used for drawing.
+     */
     private void doDrawing(Graphics g) {
         Graphics2D graph2d = (Graphics2D) g;
         Toolkit.getDefaultToolkit().sync();
         graph2d.drawImage(g2dimage, 0, 0, null);   // copy buffered image
         graph2d.dispose();
         if (g2d != null)
-            g2d.drawImage(backgroundImg,0, 0, null);
+            g2d.drawImage(backgroundImg, 0, 0, null);
     }
 
+    /**
+     * Sets the game dimensions and updates the necessary components.
+     *
+     * @param GameCellsX The number of cells in the X-axis.
+     * @param GameCellsY The number of cells in the Y-axis.
+     */
     public void setGameDimensions(int GameCellsX, int GameCellsY) {
-        this.GameCellsX = GameCellsX;
-        this.GameCellsY = GameCellsY;
-        size = Math.min(ScreenWidth/GameCellsX, ScreenHeight/GameCellsY);
-        frame.setLocation(50,50);
+        size = Math.min(ScreenWidth / GameCellsX, ScreenHeight / GameCellsY);
+        frame.setLocation(50, 50);
         frame.setSize(ScreenWidth, ScreenHeight);
         loadImages();
         try {
             backgroundImg = resizeImage(backgroundImg, frame.getWidth(), frame.getHeight());
-        } catch(Exception e) {
-            System.out.println(e.getStackTrace());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         g2dimage = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_4BYTE_ABGR_PRE);
         g2d = g2dimage.createGraphics();
-        g2d.drawImage(backgroundImg,0, 0, null);
+        g2d.drawImage(backgroundImg, 0, 0, null);
     }
 
+    /**
+     * Get the width of the screen.
+     *
+     * @return The screen width.
+     */
     public int getScreenWidth() {
         return ScreenWidth;
     }
 
+    /**
+     * Set the width of the screen.
+     *
+     * @param screenWidth The screen width.
+     */
     public void setScreenWidth(int screenWidth) {
         ScreenWidth = screenWidth;
     }
 
+    /**
+     * Get the height of the screen.
+     *
+     * @return The screen height.
+     */
     public int getScreenHeight() {
         return ScreenHeight;
     }
 
+    /**
+     * Set the height of the screen.
+     *
+     * @param screenHeight The screen height.
+     */
     public void setScreenHeight(int screenHeight) {
         ScreenHeight = screenHeight;
     }
-
-    public int getGameCellsX() {
-        return GameCellsX;
-    }
-
-    public void setGameCellsX(int gameCellsX) {
-        GameCellsX = gameCellsX;
-    }
-
-    public int getGameCellsY() {
-        return GameCellsY;
-    }
-
-    public void setGameCellsY(int gameCellsY) {
-        GameCellsY = gameCellsY;
-    }
-
 }

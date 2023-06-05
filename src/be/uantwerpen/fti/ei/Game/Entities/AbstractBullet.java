@@ -9,23 +9,22 @@ import be.uantwerpen.fti.ei.Game.Components.*;
  * @author Ahmad Shakleya
  */
 public abstract class AbstractBullet extends AbstractFigure {
-    private BulletComponent bulletComponent;
 
     /**
      * Constructs an AbstractBullet object.
      *
-     * @param x            The initial x-coordinate of the bullet.
-     * @param y            The initial y-coordinate of the bullet.
-     * @param dx           The horizontal velocity of the bullet.
-     * @param dy           The vertical velocity of the bullet.
-     * @param traagheid    The friction or deceleration of the bullet.
-     * @param hitboxWidth  The width of the bullet's hitbox.
-     * @param hitboxHeight The height of the bullet's hitbox.
-     * @param bulletActief Indicates if the bullet is active or not.
-     * @param bonusScore   The bonus score value associated with the bullet.
-     * @param screenWidth  The width of the game screen.
-     * @param screenHeight The height of the game screen.
-     * @param size         The size of the bullet.
+     * @param x              The initial x-coordinate of the bullet.
+     * @param y              The initial y-coordinate of the bullet.
+     * @param dx             The horizontal velocity of the bullet.
+     * @param dy             The vertical velocity of the bullet.
+     * @param traagheid      The friction or deceleration of the bullet.
+     * @param hitboxWidth    The width of the bullet's hitbox.
+     * @param hitboxHeight   The height of the bullet's hitbox.
+     * @param bonusScore     The bonus score value associated with the bullet.
+     * @param screenWidth   The width of the game screen.
+     * @param screenHeight  The height of the game screen.
+     * @param size           The size of the bullet.
+     * @param soundFile      The sound file associated with the bullet.
      */
     public AbstractBullet(int x,
                           int y,
@@ -34,14 +33,12 @@ public abstract class AbstractBullet extends AbstractFigure {
                           int traagheid,
                           int hitboxWidth,
                           int hitboxHeight,
-                          boolean bulletActief,
                           int bonusScore,
                           int screenWidth,
                           int screenHeight,
                           int size,
                           String soundFile) {
         super(x, y, dx, dy, traagheid, hitboxWidth, hitboxHeight, 1, bonusScore, screenWidth, screenHeight, size, soundFile);
-        this.bulletComponent = new BulletComponent(bulletActief);
     }
 
     /**
@@ -81,24 +78,6 @@ public abstract class AbstractBullet extends AbstractFigure {
     }
 
     /**
-     * Get the bullet component of the bullet.
-     *
-     * @return The bullet component.
-     */
-    public BulletComponent getBulletComponent() {
-        return bulletComponent;
-    }
-
-    /**
-     * Set the bullet component of the bullet.
-     *
-     * @param bulletComponent The bullet component to set.
-     */
-    public void setBulletComponent(BulletComponent bulletComponent) {
-        this.bulletComponent = bulletComponent;
-    }
-
-    /**
      * Get the collision component of the bullet.
      *
      * @return The collision component.
@@ -116,11 +95,21 @@ public abstract class AbstractBullet extends AbstractFigure {
         super.setCollisionComponent(collisionComponent);
     }
 
+    /**
+     * Get the sound component of the bullet.
+     *
+     * @return The sound component.
+     */
     @Override
     public SoundComponent getSoundComponent() {
         return super.getSoundComponent();
     }
 
+    /**
+     * Set the sound component of the bullet.
+     *
+     * @param soundComponent The sound component to set.
+     */
     @Override
     public void setSoundComponent(SoundComponent soundComponent) {
         super.setSoundComponent(soundComponent);
