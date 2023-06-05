@@ -557,7 +557,7 @@ public class Game {
      */
     public void bonusShine() {
         Random rand = new Random();
-        int getal = rand.nextInt(3) + 1;
+        int getal = rand.nextInt(50) + 1;
         if (getal == 2 && bonuses == null) {
             int type = rand.nextInt(100) + 1;
             if (players != null) {
