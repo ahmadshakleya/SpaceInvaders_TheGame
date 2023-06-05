@@ -3,7 +3,7 @@ package be.uantwerpen.fti.ei.Game.Entities;
 import java.util.LinkedList;
 
 public abstract class AbstractInput {
-    public enum Inputs {LEFT, RIGHT, UP, DOWN, SPACE, IDLE, P, B};
+    public enum Inputs {LEFT, RIGHT, SPACE, IDLE, P};
     private LinkedList<AbstractInput.Inputs> keyInputs;
 
     public AbstractInput() {

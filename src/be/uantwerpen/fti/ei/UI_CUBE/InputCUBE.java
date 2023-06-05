@@ -20,11 +20,8 @@ public class InputCUBE extends AbstractInput {
             switch (keycode) {
                 case KeyEvent.VK_LEFT : keyInputs.add(Inputs.LEFT);  break;
                 case KeyEvent.VK_RIGHT: keyInputs.add(Inputs.RIGHT); break;
-                case KeyEvent.VK_DOWN : keyInputs.add(Inputs.DOWN);  break;
-                case KeyEvent.VK_UP   : keyInputs.add(Inputs.UP);    break;
                 case KeyEvent.VK_SPACE: keyInputs.add(Inputs.SPACE); break;
                 case KeyEvent.VK_P: keyInputs.add(Inputs.P); break;
-                case KeyEvent.VK_B: keyInputs.add(Inputs.B); break;
             }
         }
     }

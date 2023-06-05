@@ -9,7 +9,7 @@ public class EnemyCUBE extends AbstractEnemy {
     private GraphicsContextCUBE grCtx;
 
     public EnemyCUBE(int x, int y, GraphicsContextCUBE grCtx) {
-        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 0, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), null);
+        super(x, y, grCtx.getGameCellsX()/20, grCtx.getGameCellsY()/20, 20, grCtx.getScreenWidth()/200, grCtx.getScreenHeight()/250, 1, 10, grCtx.getScreenWidth(), grCtx.getScreenHeight(), grCtx.getSize(), null);
         this.grCtx = grCtx;
     }
 
