@@ -55,7 +55,7 @@ public class EnemyMovementSystem {
                     directionChange = false;
                 }
             }
-            if (enemyArrayList.get(enemyArrayList.size() - 1).y() + enemyArrayList.get(enemyArrayList.size() - 1).dy() >= enemyArrayList.get(enemyArrayList.size() - 1).getSizeComponent().getScreenHeight() / enemyArrayList.get(enemyArrayList.size() - 1).getSizeComponent().getSize() - enemyArrayList.get(enemyArrayList.size() - 1).getCollisionComponent().getHitboxHeight()/2) {
+            if (enemyArrayList.get(enemyArrayList.size() - 1).y() + enemyArrayList.get(enemyArrayList.size() - 1).dy() >= enemyArrayList.get(enemyArrayList.size() - 1).getSizeComponent().getScreenHeight() / enemyArrayList.get(enemyArrayList.size() - 1).getSizeComponent().getSize() - enemyArrayList.get(enemyArrayList.size() - 1).getCollisionComponent().getHitboxHeight()*3) {
                 for (var enemy : enemyArrayList) {
                     enemy.getSizeComponent().setReachedEnd(true);
                 }

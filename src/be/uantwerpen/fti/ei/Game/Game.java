@@ -202,18 +202,18 @@ public class Game {
     }
 
     public void updateGame(){
-        updateEntities();
         drawEntities();
+        updateEntities();
     }
 
     public void updateEntities() {
         updateCollisions();
         updateMovements();
         updateBonus();
-        updatePlayer();
         updateBarrier();
         updatePlayerBullets();
         updateEnemies();
+        updatePlayer();
         updateEnemyBullet();
     }
     public void drawEntities() {
@@ -334,6 +334,7 @@ public class Game {
     }
     public void updateEnemies() {
         if (enemies != null) {
+            boolean endReached = false;
             for (var enemy: enemyMovementSystem.getEnemyArrayList()){
                 if (enemy.getSizeComponent().isReachedEnd()) {
                     enemy.getPositionComponent().resetPosition();
@@ -342,7 +343,13 @@ public class Game {
                         enemies.get(enemyMovementSystem.getEnemyArrayList().indexOf(enemy)).getSizeComponent().setReachedEnd(false);
                     }
                     enemy.getSizeComponent().setReachedEnd(false);
+                    endReached = true;
                 }
+            }
+            if (endReached) {
+                players.get(0).getHealthComponent().setHealthValue(players.get(0).getHealthComponent().getHealthValue()  -1);
+                healths.get(0).getHealthComponent().setHealthValue(players.get(0).getHealthComponent().getHealthValue());
+                healths.get(0).getLabelValueComponent().setLabelValue(healths.get(0).getHealthComponent().getHealthValue());
             }
             for (var enemy: enemies) {
                 if (enemy.getHealthComponent().isDead()) {
